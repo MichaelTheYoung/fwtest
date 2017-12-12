@@ -147,6 +147,12 @@
 	public function redirect($action, $rc, $keep = false) {
 		$keep ? $_SESSION["rc"] = $rc : null;
 		$url = "index.php?action=" . $action;
+		header("Location: " . $url); exit;
+	}
+
+	public function hardRedirect($action, $rc, $keep = false) {
+		$keep ? $_SESSION["rc"] = $rc : null;
+		$url = "index.php?action=" . $action;
 		$base = "<META HTTP-EQUIV=\"Refresh\" Content=\"0; URL=NEXT\">";
 		echo str_replace("NEXT", $url, $base); exit;
 	}
@@ -228,6 +234,7 @@
 		$clean = str_replace("</span>", "", $clean);
 		return $clean;
 	}
+
 
 	public function init($rc) {
 		if (isset($_SESSION["rc"])) {

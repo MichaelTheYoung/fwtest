@@ -49,19 +49,6 @@
 		return $text;
 	}
 
-	public function wunclean ($tmp) {
-		$unclean = trim($tmp);
-		$toFix = "\\" . chr(34);
-		$unclean = str_replace($toFix, chr(34), $unclean);
-		$toFix = "\\%";
-		$unclean = str_replace($toFix, "\%", $unclean);
-		$toFix = "\'";
-		$unclean = str_replace($toFix, "'", $unclean);
-		$toFix = chr(92) . chr(92);
-		$unclean = str_replace($toFix, chr(92), $unclean);
-		return $unclean;
-	}
-
 	public function unTag ($tmp) {
 		$fixed = "";
 		for ($i = 0; $i < (strlen($tmp) - 1); $i++) {
