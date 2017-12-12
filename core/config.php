@@ -6,7 +6,10 @@
 	$GLOBALS["gatewayPath"] = $appBase . "model/gateway/";
 	$GLOBALS["viewPath"] = $appBase . "view/";
 	$GLOBALS["layoutPath"] = $appBase . "layouts/";
+
 	$GLOBALS["assetsPath"] = "assets/";
+	$GLOBALS["uploadPath"] = "uploads/";
+
 	$GLOBALS["defaultPage"] = "index";
 
 
