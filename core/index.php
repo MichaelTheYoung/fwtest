@@ -212,6 +212,23 @@
 		return $unclean;
 	}
 
+	function wclean($tmp) {
+		$clean = trim($tmp);
+		$clean = mysqli_real_escape_string($this->dbConn(), $clean);
+		if (strlen($clean) < 1) {
+			$clean = " ";
+		}
+		$toFix = "\%";
+		$clean = str_replace($toFix, "\\%", $clean);
+		$clean = str_replace("<TBODY>", "", $clean);
+		$clean = str_replace("</TBODY>", "", $clean);
+		$clean = str_replace("<SPAN>", "", $clean);
+		$clean = str_replace("</SPAN>", "", $clean);
+		$clean = str_replace("<span>", "", $clean);
+		$clean = str_replace("</span>", "", $clean);
+		return $clean;
+	}
+
 	public function init($rc) {
 		if (isset($_SESSION["rc"])) {
 			$rc = $_SESSION["rc"];
