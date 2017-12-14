@@ -40,15 +40,12 @@
 
 	private function loadServices($rc) {
 		$arr = $this->doFunction($rc["section"], "before", $rc);
-		$classes = array();
 		foreach ($arr as $svc) {
 			if (file_exists($GLOBALS["servicePath"] . $svc . ".php")) {
 				include($GLOBALS["servicePath"] . $svc . ".php");
-				array_push($classes, $svc);
 			}
 			if (file_exists($GLOBALS["gatewayPath"] . $svc . ".php")) {
 				include($GLOBALS["gatewayPath"] . $svc . ".php");
-				array_push($classes, $svc);
 			}
 		}
 		return $rc;
