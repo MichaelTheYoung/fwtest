@@ -4,13 +4,11 @@
 	private function create ($rc) {
 		$rc["vcPin"] = $this->makePin();
 		$rc["vcLogPW"] = $this->makePassword($rc["vcLogPW"]);
-		$obj = new userGateway;
-		return $obj->create($rc);
+		$this->open("userGateway")->create($rc);
 	}
 
 	private function update ($rc) {
-		$obj = new userGateway;
-		$obj->update($rc);
+		$this->open("userGateway")->update($rc);
 	}
 
 	public function save ($rc, $sendback = false) {
@@ -26,13 +24,11 @@
 	}
 
 	public function load ($id) {
-		$obj = new userGateway;
-		return $obj->load($id);
+		return $this->open("userGateway")->load($id);
 	}
 
 	public function loadAll () {
-		$obj = new userGateway;
-		return $obj->loadAll();
+		return $this->open("userGateway")->loadAll();
 	}
 
 	public function makePassword ($pw) {
@@ -45,8 +41,7 @@
 
 	public function getPin ($email) {
 		$RS["Pin"] = "";
-		$obj = new userGateway;
-		if ($RS = $obj->loadAll($email)) {
+		if ($RS = $this->open("userGateway")->getPin($email)) {
 			return $RS["Pin"];
 		}
 		return $RS;
@@ -57,11 +52,9 @@
 			unset($_SESSION["user"]);
 		}
 		$rc["logpw"] = $this->makePassword($rc["logpw"]);
-		$obj = new userGateway;
-		$id = $obj->login($rc);
+		$id = $this->open("userGateway")->login($rc);
 		if ($id == 0) {
-			$obj = new messenger;
-			$obj->addMessage("Login failed.");
+			$this->open("messenger")->addMessage("Login failed.");
 			return false;
 		}
 		$this->makeUserSession($id);

@@ -1,7 +1,7 @@
 <? class editorGateway extends fw {
 
 	public function create ($rc) {
-		$obj = new db;
+		$obj = $this->open("db");
 		$SQL = "INSERT INTO tblEditor (
 			intParentID
 			, intLevel
@@ -28,7 +28,7 @@
 	}
 
 	public function update ($rc) {
-		$obj = new db;
+		$obj = $this->open("db");
 		$SQL = "UPDATE tblEditor SET ";
 		$SQL .= "intParentID = " . $rc["intParentID"] . ", ";
 		$SQL .= "intLevel = " . $rc["intLevel"] . ", ";
@@ -44,22 +44,19 @@
 	}
 
 	public function load ($id) {
-		$obj = new db;
 		if ($id > 0) {
-			return $obj->getOne("SELECT * FROM tblEditor WHERE intUserID = " . $id);
+			return $this->open("db")->getOne("SELECT * FROM tblEditor WHERE intUserID = " . $id);
 		} else {
-			return $obj->getEmpty("tblEditor");
+			return $this->open("db")->getEmpty("tblEditor");
 		}
 	}
 
 	public function loadBySection ($section, $item) {
-		$obj = new db;
-		return $obj->getOne("SELECT * FROM tblEditor WHERE vcSection = '" . $section . "' AND vcItem = '" . $item . "'");
+		return $this->open("db")->getOne("SELECT * FROM tblEditor WHERE vcSection = '" . $section . "' AND vcItem = '" . $item . "'");
 	}
 
 	public function loadAll () {
-		$obj = new db;
-		return $obj->getAll("SELECT * FROM tblEditor");
+		return $this->open("db")->getAll("SELECT * FROM tblEditor");
 	}
 
 } ?>
