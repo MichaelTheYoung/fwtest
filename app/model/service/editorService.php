@@ -3,13 +3,11 @@
 	private function create ($rc) {
 		$rc["ntBody"] = $this->fixLinks($rc["ntBody"]);
 		$rc["ntBody"] = $this->fixPics($rc["ntBody"]);
-		$obj = new editorGateway;
-		return $obj->create($rc);
+		return $this->open("editorGateway")->create($rc);
 	}
 
 	private function update ($rc) {
-		$obj = new editorGateway;
-		$obj->update($rc);
+		$this->open("editorGateway")->update($rc);
 	}
 
 	public function save ($rc, $sendback = false) {

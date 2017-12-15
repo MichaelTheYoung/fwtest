@@ -120,6 +120,10 @@
 		return $rc;
 	}
 
+	public function open($class) {
+		return $class = new $class;
+	}
+
 	public function buildUrl($tmp) {
 		$sectionpage = $tmp;
 		$ustring = "";
@@ -154,7 +158,7 @@
 		echo str_replace("NEXT", $url, $base); exit;
 	}
 
-	public function dumpvar($var, $stop = false) {
+	public function dumpvar($var, $stop = true) {
 		if (!is_array($var)) {
 			$arr = array($var);
 		} else {

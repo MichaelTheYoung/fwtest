@@ -11,18 +11,15 @@
 	}
 
 	public function index ($rc) {
-
 		if (!isset($rc["email"])) {
 			$rc["email"] = ""; $rc["logpw"] = "";
 		}
-
 		$rc["view"] = "admin.index";
 		return $rc;
 	}
 
 	public function processLogin ($rc) {
-		$users = new userService;
-		if ($users->login($rc)) {
+	if ($this->open("userService")->login($rc)) {
 			$this->redirect("admin.viewMenu", $rc);
 		} else {
 			$this->redirect("admin.index", $rc, true);
@@ -30,8 +27,7 @@
 	}
 
 	public function processLogout ($rc) {
-		$users = new userService;
-		$users->logout();
+		$this->open("userService")->logout();
 		$this->redirect("admin.index", $rc);
 	}
 
@@ -41,21 +37,16 @@
 	}
 
 	public function listUsers ($rc) {
-
-		$users = new userService;
-		$rc["users"] = $users->loadAll();
-
+		$rc["users"] = $this->open("userService")->loadAll();
 		$rc["view"] = "admin.userList";
 		return $rc;
 	}
 
 	public function formUser ($rc) {
 
-		$users = new userService;
-		$rc["user"] = $users->load($rc["id"]);
+		$rc["user"] = $this->open("userService")->load($rc["id"]);
 
-		$util = new util;
-		$rc["activelist"] = $util->getActiveList("formbox", $rc["user"]["intIsActive"]);
+		$rc["activelist"] = $this->open("util")->getActiveList("formbox", $rc["user"]["intIsActive"]);
 
 		if ($rc["id"] == 0) {
 			$rc["button"] = "Add User";
@@ -71,10 +62,7 @@
 	}
 
 	public function processUser ($rc) {
-
-		$users = new userService;
-		$rc = $users->save($rc);
-
+		$rc = $this->open("userService")->save($rc);
 		$this->redirect("admin.listUsers", $rc);
 	}
 

@@ -1,7 +1,7 @@
 <? class userGateway extends fw {
 
 	public function create ($rc) {
-		$obj = new db;
+		$obj = $this->open("db");
 		$SQL = "INSERT INTO tblUser (
 			intIsActive
 			, vcPin
@@ -23,7 +23,7 @@
 	}
 
 	public function update ($rc) {
-		$obj = new db;
+		$obj = $this->open("db");
 		$SQL = "UPDATE tblUser SET ";
 		$SQL .= "intIsActive = " . $rc["intIsActive"] . ", ";
 		$SQL .= "vcLevel = '" . $obj->clean($rc["vcLevel"]) . "', ";
@@ -35,28 +35,24 @@
 	}
 
 	public function load ($id) {
-		$obj = new db;
 		if ($id > 0) {
-			return $obj->getOne("SELECT * FROM tblUser WHERE intUserID = " . $id);
+			return $this->open("db")->getOne("SELECT * FROM tblUser WHERE intUserID = " . $id);
 		} else {
-			return $obj->getEmpty("tblUser");
+			return $this->open("db")->getEmpty("tblUser");
 		}
 	}
 
 	public function loadAll () {
-		$obj = new db;
-		return $obj->getAll("SELECT * FROM tblUser");
+		return $this->open("db")->getAll("SELECT * FROM tblUser");
 	}
 
 	public function getPin ($email) {
-		$obj = new db;
-		return $obj->getOne("SELECT vcPin FROM tblUser WHERE Email LIKE '" . $email . "'");
+		return $this->open("db")->getOne("SELECT vcPin FROM tblUser WHERE Email LIKE '" . $email . "'");
 	}
 
 	public function login ($rc) {
 		$SQL = "SELECT intUserID FROM tblUser WHERE vcEmail LIKE '" . $rc["email"] . "' AND vcLogPW = '" . $rc["logpw"] . "'";
-		$obj = new db;
-		if ($RS = $obj->getOne($SQL)) {
+		if ($RS = $this->open("db")->getOne($SQL)) {
 			return $RS["intUserID"];
 		} else {
 			return 0;
