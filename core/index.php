@@ -124,6 +124,13 @@
 		return $class = new $class;
 	}
 
+	public function populate($rc, $struct) {
+		while (list($key, $val) = each($struct)) {
+			$rc[$key] = $struct[$key];
+		}
+		return $rc;
+	}
+
 	public function buildUrl($tmp) {
 		$sectionpage = $tmp;
 		$ustring = "";
@@ -235,7 +242,6 @@
 		$clean = str_replace("</span>", "", $clean);
 		return $clean;
 	}
-
 
 	public function init($rc) {
 		if (isset($_SESSION["rc"])) {

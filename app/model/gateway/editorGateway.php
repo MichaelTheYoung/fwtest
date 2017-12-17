@@ -1,7 +1,7 @@
 <? class editorGateway extends fw {
 
 	public function create ($rc) {
-		$obj = $this->open("db");
+		$db = $this->open("db");
 		$SQL = "INSERT INTO tblEditor (
 			intParentID
 			, intLevel
@@ -20,27 +20,27 @@
 			$SQL .= $rc["intIsActive"] . ", '";
 			$SQL .= $rc["vcSection"] . "', '";
 			$SQL .= $rc["vcItem"] . "', '";
-			$SQL .= $obj->wclean($rc["vcNavName"]) . "', '";
-			$SQL .= $obj->wclean($rc["vcTitle"]) . "', '";
-			$SQL .= $obj->wclean($rc["ntBody"]) . "'
+			$SQL .= $db->wclean($rc["vcNavName"]) . "', '";
+			$SQL .= $db->wclean($rc["vcTitle"]) . "', '";
+			$SQL .= $db->wclean($rc["ntBody"]) . "'
 		)";
-		return $obj->writeOneReturn($SQL);
+		return $db->writeOneReturn($SQL);
 	}
 
 	public function update ($rc) {
-		$obj = $this->open("db");
+		$db = $this->open("db");
 		$SQL = "UPDATE tblEditor SET ";
 		$SQL .= "intParentID = " . $rc["intParentID"] . ", ";
 		$SQL .= "intLevel = " . $rc["intLevel"] . ", ";
 		$SQL .= "intSortOrder = " . $rc["intSortOrder"] . ", ";
 		$SQL .= "intIsActive = " . $rc["intIsActive"] . ", ";
-		$SQL .= "vcSection = '" . $obj->wclean($rc["vcSection"]) . "', ";
-		$SQL .= "vcItem = '" . $obj->wclean($rc["vcItem"]) . "', ";
-		$SQL .= "vcNavName = '" . $obj->wclean($rc["vcNavName"]) . "', ";
-		$SQL .= "vcTitle = '" . $obj->wclean($rc["vcTitle"]) . "' ";
-		$SQL .= "ntBody = '" . $obj->wclean($rc["ntBody"]) . "' ";
+		$SQL .= "vcSection = '" . $db->wclean($rc["vcSection"]) . "', ";
+		$SQL .= "vcItem = '" . $db->wclean($rc["vcItem"]) . "', ";
+		$SQL .= "vcNavName = '" . $db->wclean($rc["vcNavName"]) . "', ";
+		$SQL .= "vcTitle = '" . $db->wclean($rc["vcTitle"]) . "' ";
+		$SQL .= "ntBody = '" . $db->wclean($rc["ntBody"]) . "' ";
 		$SQL .= "WHERE intUserID = " . $rc["intUserID"];
-		$obj->writeOne($SQL);
+		$db->writeOne($SQL);
 	}
 
 	public function load ($id) {

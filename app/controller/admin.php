@@ -19,16 +19,16 @@
 	}
 
 	public function processLogin ($rc) {
-	if ($this->open("userService")->login($rc)) {
+		if ($this->open("userService")->login($rc)) {
 			$this->redirect("admin.viewMenu", $rc);
 		} else {
-			$this->redirect("admin.index", $rc, true);
+			$this->redirect("admin", $rc, true);
 		}
 	}
 
 	public function processLogout ($rc) {
 		$this->open("userService")->logout();
-		$this->redirect("admin.index", $rc);
+		$this->redirect("admin", $rc);
 	}
 
 	public function viewMenu ($rc) {
@@ -65,6 +65,43 @@
 		$rc = $this->open("userService")->save($rc);
 		$this->redirect("admin.listUsers", $rc);
 	}
+
+	public function forgotUser ($rc) {
+
+		if (isset($rc["email"])) {
+			$this->open("userService")->forgot($rc["email"]);
+			$this->redirect("admin", $rc);
+		}
+
+		$rc["view"] = "admin.userForgot";
+		return $rc;
+	}
+
+	public function resetUser ($rc) {
+
+		if (!isset($rc["pin"])) {
+			$this->open("messenger")->addMessage("The link that brought you here was missing necessary elements.");
+			$this->redirect("admin", $rc);
+		}
+
+		$rc["view"] = "admin.userReset";
+		return $rc;
+	}
+
+	public function processResetUser ($rc) {
+
+		if ($this->open("userService")->resetPassword($rc["email"], $rc["pin"], $rc["log1"])) {
+
+			$this->open("messenger")->addMessage("Your password was successfully reset.");
+			$this->redirect("admin", $rc);
+
+		} else {
+
+			$this->open("messenger")->addMessage("Your password reset failed.");
+			$this->redirect("admin.resetUser&pin=" . $rc["pin"], $rc);
+		}
+	}
+
 
 
 } ?>

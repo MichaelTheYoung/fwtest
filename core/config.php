@@ -1,4 +1,7 @@
 <?
+	$GLOBALS["appName"] = "Framework Test";
+	$GLOBALS["appDomain"] = "heymichael.com";
+
 	$GLOBALS["appBase"] = "app/";
 
 	$GLOBALS["controlPath"] = $appBase . "controller/";
@@ -27,7 +30,7 @@
 
 	} else if (strstr($_SERVER["SERVER_NAME"], "heymichael")) {
 
-		$GLOBALS["hostPath"] = "http://" . $_SERVER["HTTP_HOST"] . "/sites/fwbase/";
+		$GLOBALS["hostPath"] = "http://" . $_SERVER["HTTP_HOST"] . "/fwbase/";
 
 		$GLOBALS["hostName"] = "newcatchall.db.3847793.hostedresource.com";
 		$GLOBALS["userName"] = "fwbase";

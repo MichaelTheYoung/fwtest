@@ -9,6 +9,8 @@
 		<tr><td class="formcopy">Password:</td>
 		<td><input type="password" name="logpw" class="formbox" value="<?=$rc["logpw"]?>"></td></tr>
 		<tr><td colspan="2" class="alright"><input type="button" class="formbutton" onClick="Login();" value="Log In"></td></tr>
+		<tr><td colspan="2">&nbsp;</td></tr>
+		<tr><td colspan="2" class="alright"><a href="<?=$this->buildURL("admin.forgotUser")?>">Forgot Password?</a></td></tr>
 	</table>
 	</form>
 
