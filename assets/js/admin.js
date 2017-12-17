@@ -21,8 +21,7 @@
 		if (CheckEmail("frmForgot", "email", "That Email doesn't look valid.")) {
 			return false;
 		}
-		PostItem("./model/services/ajax.php", "frmForgot", "forgot");
-		setTimeout("DoneForgot()", 3500);
+		document.frmForgot.submit();
 	}
 
 	function DoneForgot() {

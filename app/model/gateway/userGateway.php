@@ -1,7 +1,7 @@
 <? class userGateway extends fw {
 
 	public function create ($rc) {
-		$obj = $this->open("db");
+		$db = $this->open("db");
 		$SQL = "INSERT INTO tblUser (
 			intIsActive
 			, vcPin
@@ -14,24 +14,29 @@
 			$SQL .= $rc["intIsActive"] . ", '";
 			$SQL .= $rc["vcPin"] . "', '";
 			$SQL .= $rc["vcLevel"] . "', '";
-			$SQL .= $obj->clean($rc["vcFName"]) . "', '";
-			$SQL .= $obj->clean($rc["vcLName"]) . "', '";
-			$SQL .= $obj->clean($rc["vcEmail"]) . "', '";
+			$SQL .= $db->clean($rc["vcFName"]) . "', '";
+			$SQL .= $db->clean($rc["vcLName"]) . "', '";
+			$SQL .= $db->clean($rc["vcEmail"]) . "', '";
 			$SQL .= $rc['vcLogPW'] . "'
 		)";
-		return $obj->writeOneReturn($SQL);
+		return $db->writeOneReturn($SQL);
 	}
 
 	public function update ($rc) {
-		$obj = $this->open("db");
+		$db = $this->open("db");
 		$SQL = "UPDATE tblUser SET ";
 		$SQL .= "intIsActive = " . $rc["intIsActive"] . ", ";
-		$SQL .= "vcLevel = '" . $obj->clean($rc["vcLevel"]) . "', ";
-		$SQL .= "vcFName = '" . $obj->clean($rc["vcFName"]) . "', ";
-		$SQL .= "vcLName = '" . $obj->clean($rc["vcLName"]) . "', ";
-		$SQL .= "vcEmail = '" . $obj->clean($rc["vcEmail"]) . "' ";
+		$SQL .= "vcLevel = '" . $db->clean($rc["vcLevel"]) . "', ";
+		$SQL .= "vcFName = '" . $db->clean($rc["vcFName"]) . "', ";
+		$SQL .= "vcLName = '" . $db->clean($rc["vcLName"]) . "', ";
+		$SQL .= "vcEmail = '" . $db->clean($rc["vcEmail"]) . "' ";
 		$SQL .= "WHERE intUserID = " . $rc["intUserID"];
-		$obj->writeOne($SQL);
+		$db->writeOne($SQL);
+
+		if (isset($rc["vcLogPW"])) {
+			$SQL = "UPDATE tblUser SET vcLogPW = '" . $rc["vcLogPW"] . "' WHERE intUserID = " . $rc["intUserID"];
+			$db->writeOne($SQL);
+		}
 	}
 
 	public function load ($id) {
@@ -43,11 +48,16 @@
 	}
 
 	public function loadAll () {
-		return $this->open("db")->getAll("SELECT * FROM tblUser");
+		return $this->open("db")->getAll("SELECT * FROM tblUser WHERE vcLevel <> 'god' ORDER BY vcLName ASC, vcFName ASC");
+	}
+
+	public function getUserByEmailAndPin ($email, $pin) {
+		$SQL = "SELECT intUserID FROM tblUser WHERE vcEmail LIKE '" . $email . "' AND vcPin = '" . $pin . "'";
+		return $this->open("db")->getOne($SQL);
 	}
 
 	public function getPin ($email) {
-		return $this->open("db")->getOne("SELECT vcPin FROM tblUser WHERE Email LIKE '" . $email . "'");
+		return $this->open("db")->getOne("SELECT vcPin FROM tblUser WHERE vcEmail LIKE '" . $email . "'");
 	}
 
 	public function login ($rc) {

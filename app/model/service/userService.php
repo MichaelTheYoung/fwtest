@@ -1,6 +1,5 @@
 <? class userService extends fw {
 
-
 	private function create ($rc) {
 		$rc["vcPin"] = $this->makePin();
 		$rc["vcLogPW"] = $this->makePassword($rc["vcLogPW"]);
@@ -73,6 +72,43 @@
 			unset($_SESSION["user"]);
 		}
 	}
+
+	public function forgot ($email) {
+
+		$rs = $this->open("userGateway")->getPin($email);
+
+		if (strlen($rs["vcPin"])) {
+
+			$header = "From: no-reply@" . $GLOBALS["appDomain"] . "\r\n";
+			$subject = "Login Information";
+			$msg = "Use this link to reset your password:\n\n";
+			$msg .= $GLOBALS["hostPath"] . "index.php?action=admin.resetUser&pin=" . $pin . "\n\n";
+			$msg = stripslashes($msg);
+			if ($GLOBALS["useMail"] == "yes") {
+				mail($email, $subject, $msg, $header);
+			}
+
+			$this->open("messenger")->addMessage("A link to reset your password has been sent to you at " . $email . ".");
+		} else {
+			$this->open("messenger")->addMessage("We have no record of the email " . $email . ".");
+		}
+	}
+
+	public function resetPassword ($email, $pin, $log1) {
+		if ($rs = $this->open("userGateway")->getUserByEmailAndPin($email, $pin)) {
+
+			$rc["user"] = $this->load($rs["intUserID"]);
+			$rc["user"]["vcLogPW"] = $this->makePassword($log1);
+
+			$rc = $this->populate($rc, $rc["user"]);
+			$rc = $this->save($rc);
+
+			return true;
+		}
+		return false;
+	}
+
+
 
 } ?>
 
