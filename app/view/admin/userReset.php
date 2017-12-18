@@ -13,6 +13,6 @@
 		<tr><td colspan="2" class="alright"><input type="button" class="formbutton" onClick="DoReset();" value="Submit"></td></tr>
 	</table>
 	</form>
-
+	<script src="<?=$GLOBALS["assetsPath"]?>js/admin/users.js"></script>
 
 

@@ -26,5 +26,5 @@
 		</td></tr>
 	</table>
 	</form>
-
+	<script src="<?=$GLOBALS["assetsPath"]?>js/admin/users.js"></script>
 
