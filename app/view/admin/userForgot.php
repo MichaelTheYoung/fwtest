@@ -11,3 +11,5 @@
 		</table>
 		</form>
 	</div>
+	<script src="<?=$GLOBALS["assetsPath"]?>js/admin/users.js"></script>
+

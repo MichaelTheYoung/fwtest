@@ -13,6 +13,7 @@
 		<tr><td colspan="2" class="alright"><a href="<?=$this->buildURL("admin.forgotUser")?>">Forgot Password?</a></td></tr>
 	</table>
 	</form>
+	<script src="<?=$GLOBALS["assetsPath"]?>js/admin/users.js"></script>
 
 
 

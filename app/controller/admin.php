@@ -92,7 +92,7 @@
 
 		if ($this->open("userService")->resetPassword($rc["email"], $rc["pin"], $rc["log1"])) {
 
-			$this->open("messenger")->addMessage("Your password was successfully reset.");
+			$this->open("messenger")->addMessage("Your password was successfully reset.", "confirm");
 			$this->redirect("admin", $rc);
 
 		} else {
