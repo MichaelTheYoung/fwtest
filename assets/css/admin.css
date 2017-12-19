@@ -670,6 +670,17 @@
 		text-align: center;
 	}
 
+	.errorbox-on {
+		width: 100%;
+		height: auto;
+		padding: 6px;
+		background-color: #EEDDDD;
+		visibility: visible;
+	}
+
+	.errorbox-on p {
+		margin: 0px 0px 4px 0px;
+	}
 
 
 

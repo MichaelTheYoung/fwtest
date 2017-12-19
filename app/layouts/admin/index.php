@@ -14,7 +14,7 @@
 		<![endif]-->
 		<script src="//code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script src="<?=$GLOBALS["assetsPath"]?>js/java.js?v=<?=time()?>"></script>
+		<script src="<?=$GLOBALS["assetsPath"]?>js/global.js?v=<?=time()?>"></script>
 	</head>
 	<body>
 		<div id="fheader">
@@ -25,6 +25,7 @@
 		<div id="wrapper">
 			<div id="fheaderback"> </div>
 			<div id="content-left">
+				<div id="errorbox" class="vanish"></div>
 				<? include($GLOBALS["layoutPath"] . "messenger.php"); ?>
 				<?=$this->showPage($rc)?>
 			</div>
