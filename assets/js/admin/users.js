@@ -1,25 +1,25 @@
 
 	function Login() {
-		if (CheckNull("frmLogin", "email", "Please enter your Email address first.")) {
-			return false;
+		var errs = errors.start();
+		if (checkEmail("frmLogin", "email")) {
+			errors.plus(errs, "That email doesn't look valid.");
 		}
-		if (CheckNull("frmLogin", "logpw", "Please enter your Password first.")) {
-			return false;
+		if (checkNull("frmLogin", "logpw")) {
+			errors.plus(errs, "Please enter your Password.");
 		}
-		if (CheckEmail("frmLogin", "email", "That Email doesn't look valid.")) {
-			return false;
+		if (!errors.output(errs)) {
+			document.frmLogin.submit();
 		}
-		document.frmLogin.submit();
 	}
 
 	function Forgot() {
-		if (CheckNull("frmForgot", "email", "Please enter your Email address first.")) {
-			return false;
+		var errs = errors.start();
+		if (checkEmail("frmForgot", "email")) {
+			errors.plus(errs, "That email doesn't look valid.");
 		}
-		if (CheckEmail("frmForgot", "email", "That Email doesn't look valid.")) {
-			return false;
+		if (!errors.output(errs)) {
+			document.frmForgot.submit();
 		}
-		document.frmForgot.submit();
 	}
 
 	function DoneForgot() {
@@ -39,22 +39,20 @@
 	}
 
 	function DoReset() {
-		if (CheckNull("frmReset", "email", "Please enter your email first.")) {
-			return false;
+		var errs = errors.start();
+		if (checkEmail("frmReset", "email")) {
+			errors.plus(errs, "That email doesn't look valid.");
 		}
-		if (CheckEmail("frmReset", "email", "That email doesn't look valid.")) {
-			return false;
+		if (checkNull("frmReset", "log1")) {
+			errors.plus(errs, "Please enter your new Password.");
 		}
-		if (CheckNull("frmReset", "log1", "Please enter your new password first.")) {
-			return false;
-		}
-		if (CheckNull("frmReset", "log2", "Please repeat your new password.")) {
-			return false;
+		if (checkNull("frmReset", "log2")) {
+			errors.plus(errs, "Please repeat your new Password.");
 		}
 		if (trimit(document.frmReset.log1.value) != trimit(document.frmReset.log2.value)) {
-			alert("The two entries of your password do not match.");
-			return false;
+			errors.plus(errs, "The two entries of your password do not match.");
 		}
-
-		document.frmReset.submit();
+		if (!errors.output(errs)) {
+			document.frmReset.submit();
+		}
 	}

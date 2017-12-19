@@ -1,14 +1,14 @@
 <?
 	if (isset($_SESSION["messages"])) {
 		?><style>
-			.errorbox-off {
+			.nessagebox-off {
 				width: 0px;
 				height: 0px;
 				overflow: hidden;
 				visibility: hidden;
 			}
 
-			.errorbox-on {
+			.messagebox-on {
 				width: 100%;
 				height: auto;
 				padding: 6px;
@@ -16,7 +16,7 @@
 				visibility: visible;
 			}
 
-			.errorbox-on p {
+			.messagebox-on p {
 				margin: 0px 0px 4px 0px;
 			}
 
@@ -28,12 +28,12 @@
 				background-color: #DDEEDD;
 			}
 		</style>
-		<div id="errorbox"><?
+		<div id="messagebox"><?
 			$errs = new messenger;
 			$errtype = $errs->showMessages();
 		?></div>
 		<script>
-			document.getElementById("errorbox").className = "errorbox-on <?=$errtype?>";
+			document.getElementById("messagebox").className = "messagebox-on <?=$errtype?>";
 		</script><?
 	}
 ?>

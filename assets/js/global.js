@@ -239,23 +239,19 @@
 		}
 	}
 
-	function CheckNull(dname, fname, msg) {
-		var tmp = document[dname][fname].value;
-		tmp = tmp.replace(/ /g, "");
+	function checkNull(formName, formField) {
+		var tmp = document[formName][formField].value;
+		tmp = tmp.trim();
 		if (tmp == "") {
-			alert(msg);
-			document[dname][fname].focus();
+			document[formName][formField].focus();
 			return true;
 		}
 	}
 
-	function CheckEmail(dname, fname, msg) {
-		var frmName = dname;
-		var fldName = fname;
-		var stuff = document[frmName][fldName].value;
-		if ((stuff.indexOf("@") == -1) || (stuff.indexOf(".") == -1)) {
-			alert(msg);
-			document[frmName][fldName].focus();
+	function checkEmail(formName, formField) {
+		var tmp = document[formName][formField].value;
+		if ((tmp.search("@") < 0) || (tmp.search(".") < 0)) {
+			document[formName][formField].focus();
 			return true;
 		}
 	}
@@ -456,5 +452,61 @@
 		document.getElementById(id).focus();
 		document.getElementById(id).select();
 	}
+
+	function StartErrors() {
+		errors = new Object();
+
+		errors.errorDiv = "errorbox";
+		errors.showClass = "errorbox-on";
+		errors.hideClass = "vanish";
+
+		errors.useOuter = false;
+		errors.outerDiv = "";
+
+		errors.useOuter ? errors.hideDiv = errors.outerDiv : errors.hideDiv = errors.errorDiv;
+
+		errors.start = function () {
+			return new Array();
+		};
+		errors.plus = function (arr, text) {
+			return arr.push(text);
+		};
+		errors.output = function (arr) {
+			document.getElementById(errors.errorDiv).innerHTML = "";
+			document.getElementById(errors.hideDiv).className = errors.hideClass;
+			if (arr.length) {
+				var text = "";
+				for (var i = 0; i < arr.length; i++) {
+					text += "<p>" + arr[i] + "</p>";
+				}
+				document.getElementById(errors.errorDiv).innerHTML = text;
+				document.getElementById(errors.hideDiv).className = errors.showClass;
+				return true;
+			}
+			return false;
+		};
+		return errors;
+	}
+	errors = StartErrors();
+
+	function StayAlive () {
+		var alive = new Object();
+		alive.url = thePath + "index.cfm?action=main.ajaxStayAlive";
+		alive.milliseconds = 600000;
+		alive.breathe = function () {
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.onreadystatechange = function() {}
+			xmlHttp.open("GET", alive.url, true);
+			xmlHttp.send(null);
+			alive.gasp();
+		}
+		alive.gasp = function () {
+			setTimeout("alive.breathe()", alive.milliseconds);
+		}
+		return alive;
+	}
+//	alive = StayAlive();
+//	alive.gasp();
+
 
 
