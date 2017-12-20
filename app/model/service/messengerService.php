@@ -1,4 +1,4 @@
-<? class messenger extends fw {
+<? class messenger extends core {
 
 	public function addMessage ($msg, $type = "error") {
 		!isset($_SESSION["messages"]) ? $_SESSION["messages"] = array() : null;

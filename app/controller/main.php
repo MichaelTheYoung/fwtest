@@ -1,4 +1,4 @@
-<? class main {
+<? class main extends core {
 
 	public function before ($rc) {
 		return array(

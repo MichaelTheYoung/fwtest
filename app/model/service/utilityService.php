@@ -1,4 +1,4 @@
-<? class util extends fw {
+<? class util extends core {
 
 	public function killFile($tmp) {
 		if (trim($tmp) !== "") {

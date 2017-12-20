@@ -1,13 +1,13 @@
-<? class editorService extends fw {
+<? class editor extends core {
 
 	private function create ($rc) {
 		$rc["ntBody"] = $this->fixLinks($rc["ntBody"]);
 		$rc["ntBody"] = $this->fixPics($rc["ntBody"]);
-		return $this->open("editorGateway")->create($rc);
+		return $this->open("editorQry")->create($rc);
 	}
 
 	private function update ($rc) {
-		$this->open("editorGateway")->update($rc);
+		$this->open("editorQry")->update($rc);
 	}
 
 	public function save ($rc, $sendback = false) {

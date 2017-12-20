@@ -1,6 +1,6 @@
 *.txt
 *.bat
 uploads/*.*
-
+ckeditor/*.*
 
 
