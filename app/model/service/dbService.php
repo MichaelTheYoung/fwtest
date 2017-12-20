@@ -1,4 +1,4 @@
-<? class db extends fw {
+<? class db extends core {
 
 	public function dbConn() {
 		$db = mysqli_connect($GLOBALS["hostName"], $GLOBALS["userName"], $GLOBALS["password"]);
@@ -55,5 +55,10 @@
 		}
 		return $rec;
 	}
+
+	public function recCount ($table) {
+		return $this->getOne("SELECT COUNT(*) FROM " . $table)[0];
+	}
+
 
 }

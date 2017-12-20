@@ -1,4 +1,4 @@
-<? class userGateway extends fw {
+<? class userQry extends core {
 
 	public function create ($rc) {
 		$db = $this->open("db");

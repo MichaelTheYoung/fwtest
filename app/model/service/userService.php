@@ -1,13 +1,13 @@
-<? class userService extends fw {
+<? class users extends core {
 
 	private function create ($rc) {
 		$rc["vcPin"] = $this->makePin();
 		$rc["vcLogPW"] = $this->makePassword($rc["vcLogPW"]);
-		$this->open("userGateway")->create($rc);
+		$this->open("userQry")->create($rc);
 	}
 
 	private function update ($rc) {
-		$this->open("userGateway")->update($rc);
+		$this->open("userQry")->update($rc);
 	}
 
 	public function save ($rc, $sendback = false) {
@@ -23,11 +23,11 @@
 	}
 
 	public function load ($id) {
-		return $this->open("userGateway")->load($id);
+		return $this->open("userQry")->load($id);
 	}
 
 	public function loadAll () {
-		return $this->open("userGateway")->loadAll();
+		return $this->open("userQry")->loadAll();
 	}
 
 	public function makePassword ($pw) {
@@ -40,7 +40,7 @@
 
 	public function getPin ($email) {
 		$RS["Pin"] = "";
-		if ($RS = $this->open("userGateway")->getPin($email)) {
+		if ($RS = $this->open("userQry")->getPin($email)) {
 			return $RS["Pin"];
 		}
 		return $RS;
@@ -51,7 +51,7 @@
 			unset($_SESSION["user"]);
 		}
 		$rc["logpw"] = $this->makePassword($rc["logpw"]);
-		$id = $this->open("userGateway")->login($rc);
+		$id = $this->open("userQry")->login($rc);
 		if ($id == 0) {
 			$this->open("messenger")->addMessage("Login failed.");
 			return false;
@@ -75,7 +75,7 @@
 
 	public function forgot ($email) {
 
-		$rs = $this->open("userGateway")->getPin($email);
+		$rs = $this->open("userQry")->getPin($email);
 
 		if (strlen($rs["vcPin"])) {
 
@@ -95,7 +95,7 @@
 	}
 
 	public function resetPassword ($email, $pin, $log1) {
-		if ($rs = $this->open("userGateway")->getUserByEmailAndPin($email, $pin)) {
+		if ($rs = $this->open("userQry")->getUserByEmailAndPin($email, $pin)) {
 
 			$rc["user"] = $this->load($rs["intUserID"]);
 			$rc["user"]["vcLogPW"] = $this->makePassword($log1);

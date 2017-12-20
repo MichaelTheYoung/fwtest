@@ -1,4 +1,4 @@
-<? class editorGateway extends fw {
+<? class editorQry extends core {
 
 	public function create ($rc) {
 		$db = $this->open("db");

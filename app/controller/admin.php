@@ -1,10 +1,10 @@
-<? class admin extends fw {
+<? class admin extends core {
 
 	public function before ($rc) {
 		return array(
-			"db",
-			"util",
-			"messenger",
+			"dbService",
+			"utilityService",
+			"messengerService",
 			"userService",
 			"userGateway"
 		);
@@ -19,7 +19,14 @@
 	}
 
 	public function processLogin ($rc) {
-		if ($this->open("userService")->login($rc)) {
+
+		if ($this->open("db")->recCount("tblUser") == 0) {
+			$rc["firstuser"] = true;
+			$this->open("messenger")->addMessage("You are the first user. Create your account and you will have access to everything.", "confirm");
+			$this->redirect("admin.formUser&id=0", $rc, true);
+		}
+
+		if ($this->open("users")->login($rc)) {
 			$this->redirect("admin.viewMenu", $rc);
 		} else {
 			$this->redirect("admin", $rc, true);
@@ -27,7 +34,7 @@
 	}
 
 	public function processLogout ($rc) {
-		$this->open("userService")->logout();
+		$this->open("users")->logout();
 		$this->redirect("admin", $rc);
 	}
 
@@ -37,14 +44,14 @@
 	}
 
 	public function listUsers ($rc) {
-		$rc["users"] = $this->open("userService")->loadAll();
+		$rc["users"] = $this->open("users")->loadAll();
 		$rc["view"] = "admin.userList";
 		return $rc;
 	}
 
 	public function formUser ($rc) {
 
-		$rc["user"] = $this->open("userService")->load($rc["id"]);
+		$rc["user"] = $this->open("users")->load($rc["id"]);
 
 		$rc["activelist"] = $this->open("util")->getActiveList("formbox", $rc["user"]["intIsActive"]);
 
@@ -52,6 +59,19 @@
 			$rc["button"] = "Add User";
 			$rc["verb"] = "Add";
 			$rc["user"]["vcLevel"] = "admin";
+
+			/*
+
+			$this->dumpvar($rc["firstuser"]);
+
+			$rc["firstuser"] is alive and well right here, but isset() below says it isn't!
+
+			*/
+
+			if (isset($rc["firstuser"])) {
+				$rc["user"]["vcLevel"] = "god";
+			}
+
 		} else {
 			$rc["button"] = "Save Changes";
 			$rc["verb"] = "Edit";
@@ -62,14 +82,14 @@
 	}
 
 	public function processUser ($rc) {
-		$rc = $this->open("userService")->save($rc);
+		$rc = $this->open("users")->save($rc);
 		$this->redirect("admin.listUsers", $rc);
 	}
 
 	public function forgotUser ($rc) {
 
 		if (isset($rc["email"])) {
-			$this->open("userService")->forgot($rc["email"]);
+			$this->open("users")->forgot($rc["email"]);
 			$this->redirect("admin", $rc);
 		}
 
@@ -90,7 +110,7 @@
 
 	public function processResetUser ($rc) {
 
-		if ($this->open("userService")->resetPassword($rc["email"], $rc["pin"], $rc["log1"])) {
+		if ($this->open("users")->resetPassword($rc["email"], $rc["pin"], $rc["log1"])) {
 
 			$this->open("messenger")->addMessage("Your password was successfully reset.", "confirm");
 			$this->redirect("admin", $rc);
