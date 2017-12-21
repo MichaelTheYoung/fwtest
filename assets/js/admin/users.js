@@ -33,9 +33,24 @@
 	}
 
 	function WriteUser() {
-
-
-		document.frmUser.submit();
+		var errs = errors.start();
+		if (checkNull("frmUser", "vcFName")) {
+			errors.plus(errs, "Please enter the First Name.");
+		}
+		if (checkNull("frmUser", "vcLName")) {
+			errors.plus(errs, "Please enter the Last Name.");
+		}
+		if (checkEmail("frmUser", "vcEmail")) {
+			errors.plus(errs, "That email doesn't look valid.");
+		}
+		if (document.frmUser.vcLogPW) {
+			if (checkNull("frmUser", "vcLogPW")) {
+				errors.plus(errs, "Please enter a Password.");
+			}
+		}
+		if (!errors.output(errs)) {
+			document.frmUser.submit();
+		}
 	}
 
 	function DoReset() {

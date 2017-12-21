@@ -22,16 +22,16 @@
 	public function getAll($SQL) {
 		$tempArray = array();
 		if ($rec = mysqli_fetch_array(mysqli_query($this->dbConn(), $SQL), MYSQLI_ASSOC)) {
-			$counter = 0;
+			$kounter = 0;
 			while (list($key, $val) = each($rec)) {
-				$fieldList[$counter] = $key;
-				$counter++;
+				$fieldList[$kounter] = $key;
+				$kounter++;
 			}
-			$counter = 0;
+			$kounter = 0;
 			$rec = mysqli_fetch_array(mysqli_query($this->dbConn(), $SQL), MYSQLI_ASSOC);
 			while (list($key, $val) = each($rec)) {
-				$nameList[$counter] = $key;
-				$counter++;
+				$nameList[$kounter] = $key;
+				$kounter++;
 			}
 			$rec = mysqli_query($this->dbConn(), $SQL);
 			while ($row = mysqli_fetch_row($rec)) {
@@ -57,7 +57,8 @@
 	}
 
 	public function recCount ($table) {
-		return $this->getOne("SELECT COUNT(*) FROM " . $table)[0];
+		$rs = $this->getOne("SELECT COUNT(*) AS RecCount FROM " . $table);
+		return $rs["RecCount"];
 	}
 
 
