@@ -30,13 +30,11 @@
 		$SQL .= "vcFName = '" . $db->clean($rc["vcFName"]) . "', ";
 		$SQL .= "vcLName = '" . $db->clean($rc["vcLName"]) . "', ";
 		$SQL .= "vcEmail = '" . $db->clean($rc["vcEmail"]) . "' ";
+		if (isset($rc["vcLogPW"])) {
+			$SQL .= ", vcLogPW = '" . $rc["vcLogPW"] . "' ";
+		}
 		$SQL .= "WHERE intUserID = " . $rc["intUserID"];
 		$db->writeOne($SQL);
-
-		if (isset($rc["vcLogPW"])) {
-			$SQL = "UPDATE tblUser SET vcLogPW = '" . $rc["vcLogPW"] . "' WHERE intUserID = " . $rc["intUserID"];
-			$db->writeOne($SQL);
-		}
 	}
 
 	public function load ($id) {

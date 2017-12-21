@@ -60,17 +60,9 @@
 			$rc["verb"] = "Add";
 			$rc["user"]["vcLevel"] = "admin";
 
-			/*
-
-			$this->dumpvar($rc["firstuser"]);
-
-			$rc["firstuser"] is alive and well right here, but isset() below says it isn't!
-
-			*/
-
-			if (isset($rc["firstuser"])) {
-				$rc["user"]["vcLevel"] = "god";
-			}
+		//	if (in_array("firstuser", $rc)) {
+		//		$rc["user"]["vcLevel"] = "god";
+		//	}
 
 		} else {
 			$rc["button"] = "Save Changes";
