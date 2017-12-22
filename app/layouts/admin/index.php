@@ -1,41 +1,47 @@
 <?
-
 	?><!DOCTYPE html>
+	<html>
 	<head>
-		<meta charset="utf-8">
-		<title>Framework Test</title>
-		<meta name="viewport" content="width=1024, user-scalable=no">
-		<link href="<?=$GLOBALS["assetsPath"]?>css/admin.css?v=<?=time()?>" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto+Condensed">
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro">
-		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-		<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<title><?=$GLOBALS["appName"]?></title>
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/jquery-ui-1.11.2-smoothness.css">
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/bootstrap.min.css">
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/bootstrap-toggle.min.css">
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/bootstrap-multiselect.css">
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/dataTables.bootstrap.min.css">
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/selectize.default.css">
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/admin.css?v=<?=time()?>">
+  		<script src="<?=$GLOBALS["assetsPath"]?>js/jquery-2.1.3.min.js"></script>
+  		<script src="<?=$GLOBALS["assetsPath"]?>js/jquery-ui-1.11.2.min.js"></script>
+  		<script src="<?=$GLOBALS["assetsPath"]?>js/lodash-3.6.0.min.js"></script>
+		<script src="<?=$GLOBALS["assetsPath"]?>js/bootstrap.min.js"></script>
+		<script src="<?=$GLOBALS["assetsPath"]?>js/bootstrap-toggle.min.js"></script>
+		<script src="<?=$GLOBALS["assetsPath"]?>js/bootstrap-multiselect.js"></script>
+		<script src="<?=$GLOBALS["assetsPath"]?>js/jquery.DataTables.js"></script>
+		<script src="<?=$GLOBALS["assetsPath"]?>js/dataTables.bootstrap.min.js"></script>
+	        <script src="<?=$GLOBALS["assetsPath"]?>js/jscolor.js"></script>
+	        <script src="<?=$GLOBALS["assetsPath"]?>js/maskedInput.min.js"></script>
+	        <script src="<?=$GLOBALS["assetsPath"]?>js/selectize.min.js"></script>
+	        <script src="<?=$GLOBALS["assetsPath"]?>js/selectize.plugin.js"></script>
 		<script src="<?=$GLOBALS["assetsPath"]?>js/global.js?v=<?=time()?>"></script>
 	</head>
 	<body>
-		<div id="fheader">
-			<div id="fheadercontent">
-				<div id="fhtext">New Framework Test</div>
+		<? include("includes/nav.php") ?>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 primaryView">
+					<div id="errorbox" class="vanish"></div>
+					<? include($GLOBALS["layoutPath"] . "messenger.php"); ?>
+					<?=$this->showPage($rc)?>
+				</div>
+				<div class="col-md-3">
+				<!--	<legend>Notes</legend> -->
+				</div>
 			</div>
 		</div>
-		<div id="wrapper">
-			<div id="fheaderback"> </div>
-			<div id="content-left">
-				<div id="errorbox" class="vanish"></div>
-				<? include($GLOBALS["layoutPath"] . "messenger.php"); ?>
-				<?=$this->showPage($rc)?>
-			</div>
-			<div id="content-spacer">&nbsp;</div>
-			<div id="content-right">
-				<!-- right-side notes go here -->
-			</div>
-		</div>
-		<div class="pad-bottom">&nbsp;</div>
+		<div class="spacer"></div>
 		<div id="hideaction"></div>
-		<div id="mask" class="mask-off"><div id="detail-outer" class="vanish"><div id="detail" class="detail-off"></div></div></div>
 	</body>
-	</html>
+</html>
+
+
+

@@ -13,6 +13,9 @@
 				height: auto;
 				padding: 6px;
 				background-color: #EEDDDD;
+				border: 1px solid #CCCCCC;
+				border-radius: 2px;
+				margin-bottom: 8px;
 				visibility: visible;
 			}
 

@@ -9,16 +9,17 @@
 			, vcFName
 			, vcLName
 			, vcEmail
-			, vcLogPW
-		) VALUES (";
+			, vcLogPW";
+		$SQL .= $this->open("util")->startStamp();
+		$SQL .= ") VALUES (";
 			$SQL .= $rc["intIsActive"] . ", '";
 			$SQL .= $rc["vcPin"] . "', '";
 			$SQL .= $rc["vcLevel"] . "', '";
 			$SQL .= $db->clean($rc["vcFName"]) . "', '";
 			$SQL .= $db->clean($rc["vcLName"]) . "', '";
 			$SQL .= $db->clean($rc["vcEmail"]) . "', '";
-			$SQL .= $rc['vcLogPW'] . "'
-		)";
+			$SQL .= $rc['vcLogPW'] . "'";
+			$SQL .= $this->open("util")->finishStamp();
 		return $db->writeOneReturn($SQL);
 	}
 
@@ -33,6 +34,7 @@
 		if (isset($rc["vcLogPW"])) {
 			$SQL .= ", vcLogPW = '" . $rc["vcLogPW"] . "' ";
 		}
+		$SQL .= $this->open("util")->updateStamp();
 		$SQL .= "WHERE intUserID = " . $rc["intUserID"];
 		$db->writeOne($SQL);
 	}

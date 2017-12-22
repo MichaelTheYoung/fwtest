@@ -508,5 +508,15 @@
 //	alive = StayAlive();
 //	alive.gasp();
 
+	function setDataTable (tableElement) {
+		tableElement.DataTable({
+			'info': false
+			, 'searching': true
+			, 'lengthChange': false
+			, 'pageLength': 20
+			, 'dom': 'ft<"row"<"col-sm-2"><"col-sm-8"p><"col-sm-2">>'
+		});
+	}
+
 
 
