@@ -53,16 +53,16 @@
 
 		$rc["user"] = $this->open("users")->load($rc["id"]);
 
-		$rc["activelist"] = $this->open("util")->getActiveList("formbox", $rc["user"]["intIsActive"]);
+		$rc["activelist"] = $this->open("util")->getActiveList("form-control", $rc["user"]["intIsActive"]);
 
 		if ($rc["id"] == 0) {
 			$rc["button"] = "Add User";
 			$rc["verb"] = "Add";
 			$rc["user"]["vcLevel"] = "admin";
 
-		//	if (in_array("firstuser", $rc)) {
-		//		$rc["user"]["vcLevel"] = "god";
-		//	}
+			if (in_array("firstuser", $rc)) {
+				$rc["user"]["vcLevel"] = "god";
+			}
 
 		} else {
 			$rc["button"] = "Save Changes";
@@ -113,7 +113,5 @@
 			$this->redirect("admin.resetUser&pin=" . $rc["pin"], $rc);
 		}
 	}
-
-
 
 } ?>

@@ -11,9 +11,9 @@
 			, vcItem
 			, vcNavName
 			, vcTitle
-			, ntBody
-
-		) VALUES (";
+			, ntBody";
+		$SQL .= $this->open("util")->startStamp();
+		$SQL .= ") VALUES (";
 			$SQL .= $rc["intParentID"] . ", ";
 			$SQL .= $rc["intLevel"] . ", ";
 			$SQL .= $rc["intSortOrder"] . ", ";
@@ -22,8 +22,8 @@
 			$SQL .= $rc["vcItem"] . "', '";
 			$SQL .= $db->wclean($rc["vcNavName"]) . "', '";
 			$SQL .= $db->wclean($rc["vcTitle"]) . "', '";
-			$SQL .= $db->wclean($rc["ntBody"]) . "'
-		)";
+			$SQL .= $db->wclean($rc["ntBody"]) . "'";
+			$SQL .= $this->open("util")->finishStamp();
 		return $db->writeOneReturn($SQL);
 	}
 
@@ -39,6 +39,7 @@
 		$SQL .= "vcNavName = '" . $db->wclean($rc["vcNavName"]) . "', ";
 		$SQL .= "vcTitle = '" . $db->wclean($rc["vcTitle"]) . "' ";
 		$SQL .= "ntBody = '" . $db->wclean($rc["ntBody"]) . "' ";
+		$SQL .= $this->load("util")->updateStamp();
 		$SQL .= "WHERE intUserID = " . $rc["intUserID"];
 		$db->writeOne($SQL);
 	}

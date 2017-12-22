@@ -62,6 +62,7 @@
 
 	public function makeUserSession ($id) {
 		$user = $this->load($id);
+		$_SESSION["user"]["userid"] = $user["intUserID"];
 		$_SESSION["user"]["level"] = $user["vcLevel"];
 		$_SESSION["user"]["fname"] = $user["vcFName"];
 		$_SESSION["user"]["lname"] = $user["vcLName"];
@@ -88,7 +89,7 @@
 				mail($email, $subject, $msg, $header);
 			}
 
-			$this->open("messenger")->addMessage("A link to reset your password has been sent to you at " . $email . ".");
+			$this->open("messenger")->addMessage("A link to reset your password has been sent to you at " . $email . ".", "confirm");
 		} else {
 			$this->open("messenger")->addMessage("We have no record of the email " . $email . ".");
 		}

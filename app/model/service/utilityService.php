@@ -72,6 +72,25 @@
 		return $theDate;
 	}
 
+	public function updateStamp() {
+		$stamp = ", intModifiedBy = " . $_SESSION["user"]["userid"];
+		$stamp .= ", vcModifyDate = '" . $this->writeDate($this->straightDate(localtime())) . "' ";
+		$stamp .= ", vcModifyTime = '" . $this->getTime(localtime()) . "' ";
+		return $stamp;
+	}
+
+	public function startStamp() {
+		return ", intCreatedBy, vcCreateDate, vcCreateTime";
+	}
+
+	public function finishStamp() {
+		$stamp = ", ";
+		isset($_SESSION["user"]["userid"]) ? $stamp .= $_SESSION["user"]["userid"] : $stamp .= "0";
+		$stamp .= ", '" . $this->writeDate($this->straightDate(localtime()));
+		$stamp .= "', '" . $this->getTime(localtime()) . "')";
+		return $stamp;
+	}
+
 	public function getTime($sentTime) {
 		$dateArray = $sentTime;
 		$hr = $dateArray[2];
