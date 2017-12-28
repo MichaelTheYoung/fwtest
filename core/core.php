@@ -121,6 +121,10 @@
 			return $rc;
 		}
 
+		public function render($rc) {
+			$this->showPage($rc);
+		}
+
 		public function open($class) {
 			return $class = new $class;
 		}

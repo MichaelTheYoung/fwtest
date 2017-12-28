@@ -45,6 +45,7 @@
 
 	public function listUsers ($rc) {
 		$rc["users"] = $this->open("users")->loadAll();
+
 		$rc["view"] = "admin.userList";
 		return $rc;
 	}
