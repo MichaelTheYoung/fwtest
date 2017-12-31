@@ -129,6 +129,24 @@
 		return $stuff;
 	}
 
+	public function StartSelect($useblank, $name, $aclass, $onchange) {
+		$tmp = "<select  id=\"" . $name . "\" name=\"" . $name . "\" class=\"" . $aclass + "\"";
+		if ($onchange != "") {
+			$tmp .= " onChange=\"" + $onchange + ";\"";
+		}
+		$tmp .= ">";
+		if ($useblank == 1) {
+			$tmp .= "<option value=\"\">Select...</option>";
+		}
+		return $tmp;
+	}
+
+	public function MakeOption($key, $chosen, $value) {
+		$key == $chosen ? $word = " selected" : $word = "";
+		return "<option value=\"" . $key . "\"" . $word . ">" . $value . "</option>";
+	}
+
+
 } ?>
 
 

@@ -23,8 +23,8 @@
 		INDEX (intCreatedBy),
 		INDEX (intModifiedBy)
 	);
-	CREATE TABLE tblEditor (
-		intEditorID INT NOT NULL AUTO_INCREMENT,
+	CREATE TABLE tblPage (
+		intPageID INT NOT NULL AUTO_INCREMENT,
 		intParentID INT DEFAULT 0,
 		intLevel INT DEFAULT 1,
 		intSortOrder INT DEFAULT 0,
@@ -40,8 +40,8 @@
 		vcCreateTime VARCHAR (10) NULL,
 		vcModifyDate VARCHAR (10) NULL,
 		vcModifyTime VARCHAR (10) NULL,
-		UNIQUE id (intEditorID),
-		KEY id_2 (intEditorID),
+		UNIQUE id (intPageID),
+		KEY id_2 (intPageID),
 		INDEX (intParentID),
 		INDEX (intCreatedBy),
 		INDEX (intModifiedBy)
