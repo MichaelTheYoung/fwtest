@@ -1,6 +1,7 @@
 *.txt
 *.bat
 uploads/*.*
-ckeditor/*.*
+ckeditor/
+test.php
 
 

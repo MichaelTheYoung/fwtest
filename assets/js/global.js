@@ -443,7 +443,7 @@
 		}
 	}
 
-	function IsInteger(num) {
+	function notInteger(num) {
 		var n = Math.floor(Number(num));
 		return String(n) === num && n >= 0;
 	}
@@ -516,6 +516,23 @@
 			, 'pageLength': 20
 			, 'dom': 'ft<"row"<"col-sm-2"><"col-sm-8"p><"col-sm-2">>'
 		});
+	}
+
+	function StartSelect(useblank, name, aclass, onchange) {
+		var tmp = "<select  id=\"" + name + "\" name=\"" + name + "\" class=\"" + aclass + "\"";
+		if (onchange != "") {
+			tmp += " onChange=\"" + onchange + ";\"";
+		}
+		tmp += ">";
+		if (useblank == 1) {
+			tmp += "<option value=\"\">Select...</option>";
+		}
+		return tmp;
+	}
+
+	function MakeOption(key, chosen, value) {
+		key == chosen ? word = " selected" : word = "";
+		return "<option value=\"" + key + "\"" + word + ">" + value + "</option>";
 	}
 
 

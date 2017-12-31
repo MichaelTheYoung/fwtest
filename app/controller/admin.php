@@ -6,7 +6,9 @@
 			"utilityService",
 			"messengerService",
 			"userService",
-			"userGateway"
+			"userGateway",
+			"pageService",
+			"pageGateway"
 		);
 	}
 
@@ -39,6 +41,9 @@
 	}
 
 	public function viewMenu ($rc) {
+
+		$rc["nav"] = $this->open("pages")->loadAll();
+
 		$rc["view"] = "admin.menu";
 		return $rc;
 	}
@@ -114,5 +119,60 @@
 			$this->redirect("admin.resetUser&pin=" . $rc["pin"], $rc);
 		}
 	}
+
+	public function viewPageMaker ($rc) {
+
+		$rc["nav"] = $this->open("pages")->loadAll();
+
+		if (isset($rc["intPageID"])) {
+			$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
+			$rc["activelist"] = $this->open("util")->getActiveList("form-control", $rc["page"]["intIsActive"]);
+		}
+
+		$rc["view"] = "admin.pageMaker";
+		return $rc;
+	}
+
+	public function processPageMaker ($rc) {
+		$rc = $this->open("pages")->save($rc);
+		$this->redirect("admin.viewPageMaker", $rc);
+	}
+
+	public function viewPageEditor ($rc) {
+
+		$rc["page"] = $this->open("pages")->loadContent($rc["intPageID"]);
+
+		$rc["view"] = "admin.pageEditor";
+		return $rc;
+	}
+
+	public function processPageEditor ($rc) {
+
+		$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
+		$rc["page"]["ntBody"] = $rc["ntBody"];
+
+		$rc = $this->populate($rc, $rc["page"]);
+		$rc = $this->open("pages")->save($rc);
+
+		$this->redirect("admin.viewMenu", $rc);
+	}
+
+	public function processSilentPage ($rc) {
+
+		$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
+		$rc["page"]["ntBody"] = $rc["otherbody"];
+
+		$rc = $this->populate($rc, $rc["page"]);
+		$rc = $this->open("pages")->save($rc);
+
+		$rc["func"] = "silentSave";
+		$rc["view"] = "admin.ajax";
+		$rc["layout"] = "none";
+
+		$this->render($rc);
+
+		return $rc;
+	}
+
 
 } ?>

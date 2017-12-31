@@ -248,6 +248,19 @@
 			return $clean;
 		}
 
+		function wunclean($tmp) {
+			$unclean = trim($tmp);
+			$toFix = "\\" . chr(34);
+			$unclean = str_replace($toFix, chr(34), $unclean);
+			$toFix = "\\%";
+			$unclean = str_replace($toFix, "\%", $unclean);
+			$toFix = "\'";
+			$unclean = str_replace($toFix, "'", $unclean);
+			$toFix = chr(92) . chr(92);
+			$unclean = str_replace($toFix, chr(92), $unclean);
+			return $unclean;
+		}
+
 		public function init($rc) {
 			if (isset($_SESSION["rc"])) {
 				$rc = $_SESSION["rc"];

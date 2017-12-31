@@ -1,25 +1,54 @@
-<? class editor extends core {
+<? class pages extends core {
 
 	private function create ($rc) {
-		$rc["ntBody"] = $this->fixLinks($rc["ntBody"]);
-		$rc["ntBody"] = $this->fixPics($rc["ntBody"]);
-		return $this->open("editorQry")->create($rc);
+		return $this->open("pageQry")->create($rc);
 	}
 
 	private function update ($rc) {
-		$this->open("editorQry")->update($rc);
+		$this->open("pageQry")->update($rc);
 	}
 
 	public function save ($rc, $sendback = false) {
-		if ($rc["intEditorID"] == 0) {
+		$rc["ntBody"] = $this->fixLinks($rc["ntBody"]);
+		$rc["ntBody"] = $this->fixPics($rc["ntBody"]);
+		if ($rc["intPageID"] == 0) {
 			$id = $this->create($rc);
 		} else {
 			$this->update($rc);
-			$id = $rc["intEditorID"];
+			$id = $rc["intPageID"];
 		}
 		if ($sendback) {
 			return $this->load($id);
 		}
+	}
+
+	public function load ($id) {
+		return $this->open("pageQry")->load($id);
+	}
+
+	public function loadContent ($id) {
+		return $this->open("pageQry")->load($id);
+	}
+
+	public function loadAll () {
+
+		$parents = $this->open("pageQry")->loadParents();
+		$children = $this->open("pageQry")->loadChildren();
+
+		$counter = 0;
+
+		foreach ($parents as $parent) {
+			$counter++;
+			$nav[$counter] = $parent;
+			foreach ($children as $child) {
+				if ($child["intParentID"] == $parent["intPageID"]) {
+					$counter++;
+					$nav[$counter] = $child;
+				}
+			}
+		}
+
+		return isset($nav) ? $nav : null;
 	}
 
 	private function fixLinks ($text) {
@@ -69,7 +98,7 @@
 			return $text;
 		} else {
 			$words = "";
-			for (var $i = 0; $i < $count; $i++) {
+			for ($i = 0; $i < $count; $i++) {
 				if ($i > $count) {
 					break;
 				}

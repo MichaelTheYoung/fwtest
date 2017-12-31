@@ -12,8 +12,11 @@
 
 	$GLOBALS["assetsPath"] = "assets/";
 	$GLOBALS["uploadPath"] = "uploads/";
+	$GLOBALS["editorPath"] = "ckeditor/";
 
 	$GLOBALS["defaultPage"] = "index";
+
+	$GLOBALS["maxPages"] = 8;
 
 
 	if (strstr($_SERVER["SERVER_NAME"], "localhost")) {
