@@ -9,7 +9,7 @@
 		&nbsp;|&nbsp;
 		<a href="#3" onClick="GetImageBank();">Image Bank</a>
 		&nbsp;|&nbsp;
-		<a href="#3" onClick="GetDocBank();">Document Bank</a>
+		<a href="#3" data-toggle="modal" data-target="#popup" onClick="getDocBank();">Document Bank</a>
 		&nbsp;|&nbsp;
 		<a href="#3" onClick="GetPreview();">Preview Page</a></p>
 	</div>
@@ -36,6 +36,7 @@
 
 		var page = new Object;
 		page.silentSave = "<?=$this->buildUrl("admin.processSilentPage")?>";
+		page.getDocumentBank = "<?=$this->buildUrl("admin.getDocumentBank")?>";
 
 	</script>
 	</form>

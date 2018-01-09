@@ -36,6 +36,7 @@
 						<div class="panel-heading greyMenu">Utilities</div>
 						<div class="list-group">
 							<a href="<?=$this->buildUrl("admin.listUsers")?>" class="list-group-item directoryLink">Work with Users</a>
+							<a href="<?=$this->buildUrl("admin.viewDocList")?>" class="list-group-item directoryLink">Uploaded Documents</a>
 						</div>
 					</div>
 				</div>

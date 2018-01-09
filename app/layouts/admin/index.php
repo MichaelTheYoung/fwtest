@@ -39,6 +39,11 @@
 			</div>
 		</div>
 		<div class="spacer"></div>
+		<div id="popup" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div id="popup-content" class="modal-content"></div>
+			</div>
+		</div>
 		<div id="hideaction"></div>
 	</body>
 </html>
