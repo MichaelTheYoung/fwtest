@@ -45,21 +45,17 @@
 	}
 
 	function getImageBank() {
-		var whole = screen.width;
-		var left = ((whole - 280) - 100);
-		var top = 20;
-		var wide = 280;
-		var high = 700;
-	//	DoBox2('index.php?action=admin.imagebank', wide, high, top, left);
+
+
 	}
 
 	function getDocBank() {
-		var whole = screen.width;
-		var left = ((whole - 300) - 100);
-		var top = 20;
-		var wide = 350;
-		var high = 700;
-	//	DoBox2('index.php?action=admin.docbank', wide, high, top, left);
+		GetItem(page.getDocumentBank, "popup-content");
+	}
+
+	function selectAll(id) {
+		document.getElementById(id).focus();
+		document.getElementById(id).select();
 	}
 
 	function getPreview() {

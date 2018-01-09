@@ -8,7 +8,9 @@
 			"userService",
 			"userGateway",
 			"pageService",
-			"pageGateway"
+			"pageGateway",
+			"documentService",
+			"documentGateway"
 		);
 	}
 
@@ -174,5 +176,50 @@
 		return $rc;
 	}
 
+	public function viewDocList ($rc) {
+
+		$rc["docs"] = $this->open("docs")->loadAll();
+
+		$rc["view"] = "admin.documentList";
+		return $rc;
+	}
+
+	public function viewDocForm ($rc) {
+
+		$rc["doc"] = $this->open("docs")->load($rc["id"]);
+
+		$rc["view"] = "admin.documentForm";
+		return $rc;
+	}
+
+	public function processDocForm ($rc) {
+
+		$rc["prefix"] = "doc-";
+
+		$rc["vcDocFile"] = $this->open("util")->upload($rc);
+
+		$rc = $this->open("docs")->save($rc);
+
+		$this->redirect("admin.viewDocList", $rc);
+	}
+
+	public function deleteDoc ($rc) {
+
+		$this->open("docs")->delete($rc);
+
+		$this->redirect("admin.viewDocList", $rc);
+	}
+
+	public function getDocumentBank ($rc) {
+
+		$rc["docs"] = $this->open("docs")->loadAll();
+
+		$rc["view"] = "admin.documentBank";
+		$rc["layout"] = "none";
+
+		$this->render($rc);
+
+		return $rc;
+	}
 
 } ?>

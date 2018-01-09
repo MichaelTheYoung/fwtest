@@ -2,6 +2,7 @@
 
 	DROP TABLE IF EXISTS tblUser;
 	DROP TABLE IF EXISTS tblEditor;
+	DROP TABLE IF EXISTS tblDocument;
 	CREATE TABLE tblUser (
 		intUserID INT NOT NULL AUTO_INCREMENT,
 		intIsActive INT DEFAULT 1 NOT NULL,
@@ -46,5 +47,11 @@
 		INDEX (intCreatedBy),
 		INDEX (intModifiedBy)
 	);
-
+	CREATE TABLE tblDocument (
+		intDocumentID INT NOT NULL AUTO_INCREMENT,
+		vcDocTitle VARCHAR (50) NULL,
+		vcDocFile VARCHAR (50) NULL,
+		UNIQUE id (intDocumentID),
+		KEY id_2 (intDocumentID)
+	);
 

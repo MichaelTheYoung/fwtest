@@ -54,9 +54,8 @@
 	private function fixLinks ($text) {
 		$text = str_replace("http://http://", "http://", $text);
 		$text = str_replace("https://https://", "https://", $text);
-		$text = str_replace($GLOBALS["hostPath"], "", $text);
-		$otherhost = str_replace("http://", "https://", $GLOBALS["hostPath"]);
-		$text = str_replace($otherhost, "", $text);
+		$local = str_replace("http://", "", $GLOBALS["hostPath"]);
+		$text = str_replace($local, "/", $text);
 		return $text;
 	}
 

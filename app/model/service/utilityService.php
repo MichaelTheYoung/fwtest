@@ -146,6 +146,77 @@
 		return "<option value=\"" . $key . "\"" . $word . ">" . $value . "</option>";
 	}
 
+	public function upload ($rc) {
+		if (is_uploaded_file($_FILES["docfile"]["tmp_name"])) {
+			$tempFile = $_FILES["docfile"]["name"];
+			$tempArray = explode(".", $tempFile);
+			$tempCount = count($tempArray);
+			$ext = "." . strtolower($tempArray[$tempCount - 1]);
+			$docFile = $rc["prefix"] . time() . $ext;
+			$dest = $GLOBALS["uploadPath"] . $docFile;
+			move_uploaded_file($_FILES["docfile"]["tmp_name"], $dest);
+			if (($ext == ".jpg") || ($ext == ".jpeg")) {
+				$this->resize($dest);
+			}
+			return $docFile;
+		}
+	}
+
+	public function multiUpload ($rc) {
+		$picArray = array();
+		for ($i = 1; $i <= $rc["maxuploads"]; $i++) {
+			if (is_uploaded_file($_FILES["docfile-" . $i]["tmp_name"])) {
+				$tempFile = $_FILES["docfile-" . $i]["name"];
+				$tempArray = explode(".", $tempFile);
+				$tempCount = count($tempArray);
+				$ext = "." . strtolower($tempArray[$tempCount - 1]);
+				$docFile = $rc["prefix"] . time() . "-" . $i . $ext;
+				$dest = $GLOBALS["uploadPath"] . $docFile;
+				move_uploaded_file($_FILES["docfile-" . $i]["tmp_name"], $dest);
+				if (($ext == ".jpg") || ($ext == ".jpeg")) {
+					$this->resize($dest);
+				}
+				array_push($picArray, $docFile);
+			}
+		}
+		return $picArray;
+	}
+
+	public function resize ($theFile) {
+		$resize = 0;
+		list($picW, $picH) = getimagesize($theFile);
+		if ($picW > 1000) {
+			$pct = 0.75;
+			if ($picW > 1400) {
+				$pct = 0.50;
+			}
+			if ($picW > 2000) {
+				$pct = 0.35;
+			}
+			if ($picW > 3000) {
+				$pct = 0.25;
+			}
+			$resize = 1;
+		} else {
+			if (filesize($theFile) > 100000) {
+				$pct = 0.95;
+				$resize = 1;
+			}
+		}
+		if ($resize == 1) {
+			echo "<meta http-equiv=\"content-type\" content=\"image/jpeg\">";
+			$newW = ($picW * $pct);
+			$newH = ($picH * $pct);
+			$qual = 75;
+			$image_p = imagecreatetruecolor($newW, $newH);
+			$image = imagecreatefromjpeg($theFile);
+			imagecopyresampled($image_p, $image, 0, 0, 0, 0, $newW, $newH, $picW, $picH);
+			imagejpeg($image_p, $theFile, $qual);
+			ob_end_clean();
+			ob_start();
+			echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">";
+		}
+	}
 
 } ?>
 
