@@ -71,7 +71,7 @@
 								Nav Label:
 							</div>
 							<div class="col-md-6">
-								<input type="text" id="vcNName" name="vcNavName" class="form-control" value="<?=$this->unclean($rs["vcNavName"], 0)?>">
+								<input type="text" id="vcNName" name="vcNavName" class="form-control" value="<?=$rs["vcNavName"]?>">
 							</div>
 						</div>
 
@@ -80,7 +80,7 @@
 								Page Title:
 							</div>
 							<div class="col-md-6">
-								<input type="text" id="vcTitle" name="vcTitle" class="form-control" value="<?=$this->unclean($rs["vcTitle"], 0)?>">
+								<input type="text" id="vcTitle" name="vcTitle" class="form-control" value="<?=$rs["vcTitle"]?>">
 							</div>
 						</div>
 
@@ -98,7 +98,7 @@
 								Sort Order:
 							</div>
 							<div class="col-md-6">
-								<input type="text" id="intSortOrder" name="intSortOrder" class="form-control numbox" value="<?=$this->unclean($rs["intSortOrder"], 0)?>">
+								<input type="text" id="intSortOrder" name="intSortOrder" class="form-control numbox" value="<?=$rs["intSortOrder"]?>">
 							</div>
 						</div>
 

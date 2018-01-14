@@ -26,9 +26,9 @@
 		document.location.href = "index.php?action=admin";
 	}
 
-	function KillUser(id) {
+	function killUser(id) {
 		if (confirm("This is permanent and can't be reversed!")) {
-			document.location.href = "index.php?action=admin.userlist&del=" + id;
+			document.location.href = "index.php?action=admin.listUsers&del=" + id;
 		}
 	}
 

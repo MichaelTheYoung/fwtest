@@ -109,7 +109,9 @@
 		return false;
 	}
 
-
+	public function deleteUser ($id) {
+		$this->open("userQry")->deleteUser($id);
+	}
 
 } ?>
 

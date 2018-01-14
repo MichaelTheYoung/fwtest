@@ -10,8 +10,8 @@
 		foreach($rc["docs"] as $doc) {
 			?><div class="row rowbottom">
 				<div class="col-md-10">
-					<h4><?=$this->unclean($doc["vcDocTitle"], 0)?></h4>
-					<input type="text" name="doc<?=$doc["intDocumentID"]?>" id="doc<?=$doc["intDocumentID"]?>" onClick="selectAll('doc<?=$doc["intDocumentID"]?>');" value="<?=$GLOBALS["hostPath"]?><?=$GLOBALS["uploadPath"]?><?=$doc["vcDocFile"]?>">
+					<h4><?=$doc["vcDocTitle"]?></h4>
+					<input type="text" name="doc<?=$doc["intDocumentID"]?>" id="doc<?=$doc["intDocumentID"]?>" class="form-control" onClick="selectAll('doc<?=$doc["intDocumentID"]?>');" value="<?=$GLOBALS["hostPath"]?><?=$GLOBALS["uploadPath"]?><?=$doc["vcDocFile"]?>">
 				</div>
 			</div><?
 		}

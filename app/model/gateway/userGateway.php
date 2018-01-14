@@ -48,7 +48,7 @@
 	}
 
 	public function loadAll () {
-		return $this->open("db")->getAll("SELECT * FROM tblUser WHERE vcLevel <> 'god' ORDER BY vcLName ASC, vcFName ASC");
+		return $this->open("db")->getAll("SELECT * FROM tblUser WHERE vcLevel <> 'god' AND intIsActive < 9 ORDER BY vcLName ASC, vcFName ASC");
 	}
 
 	public function getUserByEmailAndPin ($email, $pin) {
@@ -67,6 +67,11 @@
 		} else {
 			return 0;
 		}
+	}
+
+	public function deleteUser ($id) {
+		$SQL = "UPDATE tblUser SET intIsActive = 9 WHERE intUserID = " . $id;
+		$this->open("db")->writeOne($SQL);
 	}
 
 } ?>

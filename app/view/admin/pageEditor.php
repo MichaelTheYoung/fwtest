@@ -21,7 +21,7 @@
 	<input type="hidden" name="otherbody" value="">
 
 	<div class="row rowbottom">
-		<textarea id="ntBody" name="ntBody" class="form-control" style="width: 100%; height: 600px; resize: none;"><?=$this->wunclean($rc["page"]["ntBody"])?></textarea>
+		<textarea id="ntBody" name="ntBody" class="form-control" style="width: 100%; height: 600px; resize: none;"><?=$rc["page"]["ntBody"]?></textarea>
 	</div>
 
 	<div class="row rowbottom alright">

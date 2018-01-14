@@ -9,7 +9,7 @@
 					Document Title:
 				</div>
 				<div class="col-md-4">
-					<input type="text" id="vcDocTitle" name="vcDocTitle" class="form-control" value="<?=$this->unclean($rc["doc"]["vcDocTitle"], 0)?>">
+					<input type="text" id="vcDocTitle" name="vcDocTitle" class="form-control" value="<?=$rc["doc"]["vcDocTitle"]?>">
 				</div>
 			</div>
 			<div class="row rowbottom">
