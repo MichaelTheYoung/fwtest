@@ -51,6 +51,11 @@
 	}
 
 	public function listUsers ($rc) {
+
+		if (isset($rc["del"])) {
+			$this->open("users")->deleteUser($rc["del"]);
+		}
+
 		$rc["users"] = $this->open("users")->loadAll();
 
 		$rc["view"] = "admin.userList";

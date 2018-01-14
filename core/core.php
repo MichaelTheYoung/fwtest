@@ -82,7 +82,7 @@
 				if (isset($rc["action"])) {
 					unset($rc["action"]);
 				}
-				$rc["_querystring_"] = $_SERVER["QUERY_STRING"];
+				$rc["querystring"] = $_SERVER["QUERY_STRING"];
 			}
 			return $rc;
 		}
@@ -198,69 +198,6 @@
 			}
 		}
 
-		public function clean($tmp) {
-			$clean = trim($tmp);
-			$clean = mysqli_real_escape_string($this->dbConn(), $clean);
-			if (strlen($clean) < 1) {
-				$clean = " ";
-			}
-			$pbreak = chr(13) . chr(10);
-			$clean = str_replace($pbreak, "<br>", $clean);
-			$otherpbreak = "\\n";
-			$clean = str_replace($otherpbreak, "<br>", $clean);
-			$toFix = "\%";
-			$clean = str_replace($toFix, "\\%", $clean);
-			return $clean;
-		}
-
-		public function unclean($tmp, $inBox = 0) {
-			$unclean = trim($tmp);
-			if ($inBox == 1) {
-				$pbreak = chr(13) . chr(10);
-				$pbreak = "\n";
-				$unclean = str_replace("<br>", $pbreak, $unclean);
-			}
-			$toFix = "\\" . chr(34);
-			$unclean = str_replace($toFix, chr(34), $unclean);
-			$toFix = "\\%";
-			$unclean = str_replace($toFix, "\%", $unclean);
-			$toFix = "\'";
-			$unclean = str_replace($toFix, "'", $unclean);
-			$toFix = chr(92) . chr(92);
-			$unclean = str_replace($toFix, chr(92), $unclean);
-			return $unclean;
-		}
-
-		function wclean($tmp) {
-			$clean = trim($tmp);
-			$clean = mysqli_real_escape_string($this->dbConn(), $clean);
-			if (strlen($clean) < 1) {
-				$clean = " ";
-			}
-			$toFix = "\%";
-			$clean = str_replace($toFix, "\\%", $clean);
-			$clean = str_replace("<TBODY>", "", $clean);
-			$clean = str_replace("</TBODY>", "", $clean);
-			$clean = str_replace("<SPAN>", "", $clean);
-			$clean = str_replace("</SPAN>", "", $clean);
-			$clean = str_replace("<span>", "", $clean);
-			$clean = str_replace("</span>", "", $clean);
-			return $clean;
-		}
-
-		function wunclean($tmp) {
-			$unclean = trim($tmp);
-			$toFix = "\\" . chr(34);
-			$unclean = str_replace($toFix, chr(34), $unclean);
-			$toFix = "\\%";
-			$unclean = str_replace($toFix, "\%", $unclean);
-			$toFix = "\'";
-			$unclean = str_replace($toFix, "'", $unclean);
-			$toFix = chr(92) . chr(92);
-			$unclean = str_replace($toFix, chr(92), $unclean);
-			return $unclean;
-		}
-
 		public function init($rc) {
 			if (isset($_SESSION["rc"])) {
 				$rc = $_SESSION["rc"];
@@ -288,7 +225,6 @@
 	!isset($rc) ? $rc = array() : null;
 	$core = new core;
 	$rc = $core->init($rc);
-
 
 ?>
 

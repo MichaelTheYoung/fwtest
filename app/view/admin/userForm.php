@@ -20,7 +20,7 @@
 					First Name:
 				</div>
 				<div class="col-md-4">
-					<input type="text" id="vcFName" name="vcFName" class="form-control" value="<?=$this->unclean($rs["vcFName"], 0)?>">
+					<input type="text" id="vcFName" name="vcFName" class="form-control" value="<?=$rs["vcFName"]?>">
 				</div>
 			</div>
 			<div class="row rowbottom">
@@ -28,7 +28,7 @@
 					Last Name:
 				</div>
 				<div class="col-md-4">
-					<input type="text" id="vcLName" name="vcLName" class="form-control" value="<?=$this->unclean($rs["vcLName"], 0)?>">
+					<input type="text" id="vcLName" name="vcLName" class="form-control" value="<?=$rs["vcLName"]?>">
 				</div>
 			</div>
 			<div class="row rowbottom">
@@ -36,7 +36,7 @@
 					Email:
 				</div>
 				<div class="col-md-4">
-					<input type="text" id="vcEmail" name="vcEmail" class="form-control" value="<?=$this->unclean($rs["vcEmail"], 0)?>">
+					<input type="text" id="vcEmail" name="vcEmail" class="form-control" value="<?=$rs["vcEmail"]?>">
 				</div>
 			</div><?
 			if ($rs["intUserID"] == 0) {

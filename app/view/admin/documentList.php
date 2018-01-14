@@ -13,7 +13,7 @@
 						<tbody><?
 							foreach ($rc["docs"] as $doc) {
 								?><tr class="tableRow"">
-									<td><?=$this->unclean($doc["vcDocTitle"])?></td>
+									<td><?=$doc["vcDocTitle"]?></td>
 									<td><a href="<?=$this->buildURL("admin.deleteDoc?id=" . $doc["intDocumentID"])?>">Delete</a></td></tr>
 								</tr><?
 							}
