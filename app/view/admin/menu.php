@@ -23,7 +23,7 @@
 
 							foreach ($nav as $page) {
 								$page["intParentID"] > 0 ? $indent = " deepIndent" : $indent = "";
-								?><a href="<?=$this->buildUrl("admin.viewPageEditor?intPageID=" . $page["intPageID"])?>" class="list-group-item adminLink<?=$indent?>"><?=$page["vcNavName"]?></a><?
+								?><a href="<?=$this->buildUrl("admin.viewPageEditor?intPageID=" . $page["intPageID"])?>" class="list-group-item adminLink"><?=$page["vcNavName"]?></a><?
 							}
 
 							?></div>
