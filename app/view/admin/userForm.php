@@ -3,7 +3,7 @@
 
 	?><div class="row">
 		<div class="col-md-12">
-			<legend><?=$rc["verb"]?> User</legend>
+			<h3><?=$rc["verb"]?> User</h3>
 			<form name="frmUser" method="post" action="<?=$this->buildUrl("admin.processUser")?>">
 			<input type="hidden" name="intUserID" value="<?=$rs["intUserID"]?>">
 			<input type="hidden" name="vcLevel" value="<?=$rs["vcLevel"]?>">
@@ -51,8 +51,8 @@
 			}
 			?><div class="row rowbottom">
 				<div class="col-md-6 alright">
-					<input type="button" class="btn btn-primary" onClick="document.location.href='<?=$this->buildUrl("admin.listUsers")?>';" value="Cancel">
-					<input type="button" class="btn btn-primary" onClick="WriteUser();" value="<?=$rc["button"]?>">
+					<input type="button" class="btn btn-primary btn-admin" onClick="document.location.href='<?=$this->buildUrl("admin.listUsers")?>';" value="Cancel">
+					<input type="button" class="btn btn-primary btn-admin" onClick="WriteUser();" value="<?=$rc["button"]?>">
 				</div>
 			</div>
 			</form>

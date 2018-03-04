@@ -4,7 +4,7 @@
 		<div class="col-md-offset-2 col-md-8">
 			<form name="frmLogin" class="form-horizontal" method="post" action="<?=$this->buildURL("admin.processLogin")?>">
 				<fieldset>
-					<legend>Please Log In</legend>
+					<h3>Please Log In</h3>
 					<div class="form-group">
 						<label class="control-label col-md-3" for="email">Your Email:</label>
 						<div class="col-md-6">
@@ -19,9 +19,9 @@
 					</div>
 					<div class="form-group">
 						<div class="col-md-offset-3 col-md-6 alright">
-							<input type="button" class="btn btn-primary" onClick="Login();" value="Log In">
+							<input type="button" class="btn btn-primary btn-admin" onClick="Login();" value="Log In">
 							<br><br>
-							<a href="<?=$this->buildURL("admin.forgotUser")?>">Forgot Password?</a>
+							<a href="<?=$this->buildURL("admin.forgotUser")?>" class="adminLink">Forgot Password?</a>
 						</div>
 					</div>
 				</fieldset>

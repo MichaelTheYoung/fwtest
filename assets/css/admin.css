@@ -3,6 +3,11 @@
 		background-color: #FFFFFF !important;
 	}
 
+	h3 {
+		color: #666666;
+		margin-bottom: 18px;
+	}
+
 	.errorbox-on {
 		width: 100%;
 		height: auto;
@@ -25,13 +30,28 @@
 		color: #EEEEEE !important;
 	}
 
-	.greyMenu {
-		background-color: #777777 !important;
+	.menu {
+		background-color: #222222 !important;
 	}
 
-	.greyMenuBox {
-		border: 1px solid #777777 !important;
+	.menuBox {
+		border: 1px solid #222222 !important;
+		border-radius: 4px;
+	}
 
+	.adminLink {
+		color: #000000 !important;
+	}
+
+	.btn-admin {
+		background-color: #666666 !important;
+		background: linear-gradient(#888888, #666666);
+		border-color: #666666 !important;
+	}
+
+	.btn-admin:hover {
+		background-color: #666666 !important;
+		background: linear-gradient(#AAAAAA, #888888);
 	}
 
 	.tableRow td:not(.verifiedCell) {
@@ -63,6 +83,22 @@
 
 	.spacer {
 		width: 30px;
+	}
+
+	.pageBox {
+		border: 1px solid #BBBBBB;
+		border-radius: 4px;
+		padding: 16px;
+	}
+
+	.formLabel {
+		color: #666666;
+		font-weight: bold;
+	}
+
+	.form-control {
+		color: #000000;
+		border-color: #888888;
 	}
 
 
