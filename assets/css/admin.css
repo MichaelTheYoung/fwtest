@@ -4,7 +4,7 @@
 	}
 
 	h3 {
-		color: #666666;
+		color: #003366;
 		margin-bottom: 18px;
 	}
 
@@ -31,27 +31,31 @@
 	}
 
 	.menu {
-		background-color: #222222 !important;
+		background-color: #003366 !important;
 	}
 
 	.menuBox {
-		border: 1px solid #222222 !important;
+		border: 1px solid #003366 !important;
 		border-radius: 4px;
 	}
 
 	.adminLink {
-		color: #000000 !important;
+		color: #001144 !important;
 	}
 
 	.btn-admin {
 		background-color: #666666 !important;
-		background: linear-gradient(#888888, #666666);
+		background: linear-gradient(#006699, #003366);
 		border-color: #666666 !important;
 	}
 
 	.btn-admin:hover {
 		background-color: #666666 !important;
-		background: linear-gradient(#AAAAAA, #888888);
+		background: linear-gradient(#0077AA, #004477);
+	}
+
+	.btn-pager {
+		margin: 8px 0px 8px 8px;
 	}
 
 	.tableRow td:not(.verifiedCell) {

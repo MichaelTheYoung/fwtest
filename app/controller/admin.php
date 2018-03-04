@@ -134,6 +134,8 @@
 		if (isset($rc["intPageID"])) {
 			$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
 			$rc["activelist"] = $this->open("util")->getActiveList("form-control", $rc["page"]["intIsActive"]);
+			$rc["intPageID"] == 0 ? $rc["verb"] = "Add New" : $rc["verb"] = "Edit " . $rc["page"]["vcNavName"];
+			$rc["intPageID"] == 0 ? $rc["button"] = "Add Page" : $rc["button"] = "Save Changes";
 		}
 
 		$rc["view"] = "admin.pageMaker";
