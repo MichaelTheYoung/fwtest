@@ -1,7 +1,7 @@
 <?
 	?><div class="row">
 		<div class="col-md-12">
-			<legend>Reset Your Password</legend>
+			<h3>Reset Your Password</h3>
 			<p>Send us your email and we'll send you a link to reset your password:</p>
 			<form name="frmForgot" method="post" action="<?=$this->buildURL("admin.forgotUser")?>">
 			<input type="hidden" name="func" value="forgot">
@@ -15,7 +15,7 @@
 			</div>
 			<div class="row rowbottom">
 				<div class="col-md-6 alright">
-					<input type="button" class="btn btn-primary" onClick="Forgot();" value="Send">
+					<input type="button" class="btn btn-primary btn-admin" onClick="Forgot();" value="Send">
 				</div>
 			</div>
 			</form>

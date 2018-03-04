@@ -2,7 +2,7 @@
 
 	?><div class="row">
 		<div class="col-md-12">
-			<legend>Upload a Document</legend>
+			<h3>Upload a Document</h3>
 			<form name="frmDoc" enctype="multipart/form-data" method="post" action="<?=$this->buildUrl("admin.processDocForm")?>">
 			<div class="row rowbottom">
 				<div class="col-md-2 formLabel alright">
@@ -22,8 +22,8 @@
 			</div>
 			<div class="row rowbottom">
 				<div class="col-md-6 alright">
-					<input type="button" class="btn btn-primary" onClick="document.location.href='<?=$this->buildUrl("admin.viewDocList")?>';" value="Cancel">
-					<input type="button" class="btn btn-primary" onClick="checkDoc();" value="Upload Document">
+					<input type="button" class="btn btn-primary btn-admin" onClick="document.location.href='<?=$this->buildUrl("admin.viewDocList")?>';" value="Cancel">
+					<input type="button" class="btn btn-primary btn-admin" onClick="checkDoc();" value="Upload Document">
 				</div>
 			</div>
 			</form>

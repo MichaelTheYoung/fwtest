@@ -2,9 +2,9 @@
 
 	?><div class="row">
 		<div class="col-md-12">
-			<legend>Create / Manage Pages</legend>
+			<h3>Create / Manage Pages</h3>
 			<div class="row">
-				<div class="col-md-3"><?
+				<div class="col-md-3"><div class="pageBox"><?
 
 					$counter = 0;
 					if (is_array($rc["nav"])) {
@@ -17,17 +17,19 @@
 								$counter++;
 							}
 							$page["intParentID"] > 0 ? $indent = " class=\"indent\"" : $indent = "";
-							?><p<?=$indent?>><a href="<?=$this->buildUrl("admin.viewPageMaker?intPageID=" . $page["intPageID"])?>"><?=$page["vcNavName"]?></a></p><?
+							?><p<?=$indent?>><a href="<?=$this->buildUrl("admin.viewPageMaker?intPageID=" . $page["intPageID"])?>" class="adminLink"><?=$page["vcNavName"]?></a></p><?
 						}
 					}
 					if ($counter < $GLOBALS["maxPages"]) {
 						?><p>&nbsp;</p>
-						<p><a href="<?=$this->buildUrl("admin.viewPageMaker?intPageID=0")?>">MAKE A NEW PAGE</a></p><?
+						<p><a href="<?=$this->buildUrl("admin.viewPageMaker?intPageID=0")?>" class="adminLink">MAKE A NEW PAGE</a></p><?
 					}
-					?><a href="<?=$this->buildUrl("admin.viewMenu")?>"><input type="button" class="btn btn-primary" value="Done"></button></a>
-				</div>
+					?><a href="<?=$this->buildUrl("admin.viewMenu")?>"><input type="button" class="btn btn-primary btn-admin" value="Done"></button></a>
+				</div></div>
 				<div class="col-md-9"><?
 					if (isset($rc["page"])) {
+
+						?><div id="pager" class="pageBox"><?
 
 						$rs = $rc["page"];
 
@@ -104,8 +106,8 @@
 
 						<div class="row rowbottom">
 							<div class="col-md-9 alright">
-								<input type="button" class="btn btn-primary" onClick="document.location.href='<?=$this->buildUrl("admin.viewPageMaker")?>';" value="Cancel">
-								<input type="button" class="btn btn-primary" onClick="writePage();" value="Save Changes">
+								<input type="button" class="btn btn-primary btn-admin" onClick="document.location.href='<?=$this->buildUrl("admin.viewPageMaker")?>';" value="Cancel">
+								<input type="button" class="btn btn-primary btn-admin" onClick="writePage();" value="Save Changes">
 							</div>
 						</div><?
 
@@ -116,9 +118,11 @@
 						?><input type="hidden" name="intLevel" value="<?=$rs["intLevel"]?>">
 						<input type="hidden" name="vcSection" value="<?=$rs["vcSection"]?>">
 						<input type="hidden" name="vcItem" value="<?=$rs["vcItem"]?>">
-						<input type="hidden" name="ntBody" value="<?=$rs["ntBody"]?>">
+						<input type="hidden" name="ntBody" value='<?=$rs["ntBody"]?>'>
 
 						</form><?
+
+						?></div><?
 					}
 
 				?></div>

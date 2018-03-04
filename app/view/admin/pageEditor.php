@@ -1,17 +1,17 @@
 <?
 
 	?><div class="row rowbottom">
-		<legend>Edit Page: <?=$rc["page"]["vcTitle"]?></legend>
+		<h3>Edit Page: <?=$rc["page"]["vcTitle"]?></h3>
 	</div>
 
 	<div class="row rowbottom">
-		<p><a href="<?=$this->buildUrl("admin.viewMenu")?>">Back</a>
+		<p><a href="<?=$this->buildUrl("admin.viewMenu")?>" class="adminLink">Back</a>
 		&nbsp;|&nbsp;
-		<a href="#3" onClick="GetImageBank();">Image Bank</a>
+		<a href="#3" onClick="GetImageBank();" class="adminLink">Image Bank</a>
 		&nbsp;|&nbsp;
-		<a href="#3" data-toggle="modal" data-target="#popup" onClick="getDocBank();">Document Bank</a>
+		<a href="#3" data-toggle="modal" data-target="#popup" onClick="getDocBank();" class="adminLink">Document Bank</a>
 		&nbsp;|&nbsp;
-		<a href="#3" onClick="GetPreview();">Preview Page</a></p>
+		<a href="#3" onClick="GetPreview();" class="adminLink">Preview Page</a></p>
 	</div>
 
 	<script src="<?=$GLOBALS["editorPath"]?>ckeditor.js"></script>
@@ -25,8 +25,9 @@
 	</div>
 
 	<div class="row rowbottom alright">
-		<input type="button" class="btn btn-primary" onClick="savePage();" value="Save Changes">
-		<input type="button" class="btn btn-primary" onClick="checkEditor('ntBody');" value="Save and Exit">
+		<a href="<?=$this->buildUrl("admin.viewMenu")?>" class="btn btn-primary btn-admin">Cancel</a>
+		<input type="button" class="btn btn-primary btn-admin" onClick="savePage();" value="Save Changes">
+		<input type="button" class="btn btn-primary btn-admin" onClick="checkEditor('ntBody');" value="Save and Exit">
 	</div>
 
 	<div id="saved" class="row rowbottom alright">&nbsp;</div>
