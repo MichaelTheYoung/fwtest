@@ -26,29 +26,29 @@
 		return $this->open("pageQry")->load($id);
 	}
 
-	public function loadContent ($id) {
-		return $this->open("pageQry")->load($id);
-	}
-
 	public function loadAll () {
 
 		$parents = $this->open("pageQry")->loadParents();
-		$children = $this->open("pageQry")->loadChildren();
-
 		$counter = 0;
 
 		foreach ($parents as $parent) {
 			$counter++;
 			$nav[$counter] = $parent;
+
+			$children = $this->open("pageQry")->loadChildren($parent["intPageID"]);
+			$childCounter = 0;
+
 			foreach ($children as $child) {
-				if ($child["intParentID"] == $parent["intPageID"]) {
-					$counter++;
-					$nav[$counter] = $child;
-				}
+				$childCounter++;
+				$nav[$counter]["children"][$childCounter] = $child;
 			}
 		}
 
 		return isset($nav) ? $nav : null;
+	}
+
+	public function findHome () {
+		return $this->open("pageQry")->findHome();
 	}
 
 	private function fixLinks ($text) {

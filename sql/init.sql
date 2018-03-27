@@ -51,7 +51,15 @@
 		intDocumentID INT NOT NULL AUTO_INCREMENT,
 		vcDocTitle VARCHAR (50) NULL,
 		vcDocFile VARCHAR (50) NULL,
+		intCreatedBy INT DEFAULT 0 NOT NULL,
+		intModifiedBy INT DEFAULT 0 NOT NULL,
+		vcCreateDate VARCHAR (10) NULL,
+		vcCreateTime VARCHAR (10) NULL,
+		vcModifyDate VARCHAR (10) NULL,
+		vcModifyTime VARCHAR (10) NULL,
 		UNIQUE id (intDocumentID),
-		KEY id_2 (intDocumentID)
+		KEY id_2 (intDocumentID),
+		INDEX (intCreatedBy),
+		INDEX (intModifiedBy)
 	);
 

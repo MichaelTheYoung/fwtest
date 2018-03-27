@@ -19,11 +19,15 @@
 							<div class="panel-heading menu">Edit Page Content</div>
 							<div class="list-group"><?
 
-							$nav = $rc["nav"];
-
+							$nav = $rc["nav"]; $counter = 0;
 							foreach ($nav as $page) {
-								$page["intParentID"] > 0 ? $indent = " deepIndent" : $indent = "";
+								$counter++;
 								?><a href="<?=$this->buildUrl("admin.viewPageEditor?intPageID=" . $page["intPageID"])?>" class="list-group-item adminLink"><?=$page["vcNavName"]?></a><?
+								if (isset($nav[$counter]["children"])) {
+									foreach ($nav[$counter]["children"] as $child) {
+										?><a href="<?=$this->buildUrl("admin.viewPageEditor?intPageID=" . $child["intPageID"])?>" class="list-group-item adminLink deepIndent"><?=$child["vcNavName"]?></a><?
+									}
+								}
 							}
 
 							?></div>

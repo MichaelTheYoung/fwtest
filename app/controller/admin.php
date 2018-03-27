@@ -2,8 +2,6 @@
 
 	public function before ($rc) {
 		return array(
-			"dbService",
-			"utilityService",
 			"messengerService",
 			"userService",
 			"userGateway",
@@ -24,7 +22,7 @@
 
 	public function processLogin ($rc) {
 
-		if ($this->open("db")->recCount("tblUser") == 0) {
+		if ($this->recCount("tblUser") == 0) {
 			$rc["firstuser"] = true;
 			$this->open("messenger")->addMessage("You are the first user. Create your account and you will have access to everything.", "confirm");
 			$this->redirect("admin.formUser&id=0", $rc, true);
@@ -66,7 +64,7 @@
 
 		$rc["user"] = $this->open("users")->load($rc["id"]);
 
-		$rc["activelist"] = $this->open("util")->getActiveList("form-control", $rc["user"]["intIsActive"]);
+		$rc["activelist"] = $this->getActiveList("form-control", $rc["user"]["intIsActive"]);
 
 		if ($rc["id"] == 0) {
 			$rc["button"] = "Add User";
@@ -129,11 +127,13 @@
 
 	public function viewPageMaker ($rc) {
 
-		$rc["nav"] = $this->open("pages")->loadAll();
+		$pages = new pages;
+
+		$rc["nav"] = $pages->loadAll();
 
 		if (isset($rc["intPageID"])) {
-			$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
-			$rc["activelist"] = $this->open("util")->getActiveList("form-control", $rc["page"]["intIsActive"]);
+			$rc["page"] = $pages->load($rc["intPageID"]);
+			$rc["activelist"] = $this->getActiveList("form-control", $rc["page"]["intIsActive"]);
 			$rc["intPageID"] == 0 ? $rc["verb"] = "Add New" : $rc["verb"] = "Edit " . $rc["page"]["vcNavName"];
 			$rc["intPageID"] == 0 ? $rc["button"] = "Add Page" : $rc["button"] = "Save Changes";
 		}
@@ -149,7 +149,7 @@
 
 	public function viewPageEditor ($rc) {
 
-		$rc["page"] = $this->open("pages")->loadContent($rc["intPageID"]);
+		$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
 
 		$rc["view"] = "admin.pageEditor";
 		return $rc;
@@ -157,22 +157,26 @@
 
 	public function processPageEditor ($rc) {
 
-		$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
+		$pages = new pages;
+
+		$rc["page"] = $pages->load($rc["intPageID"]);
 		$rc["page"]["ntBody"] = $rc["ntBody"];
 
 		$rc = $this->populate($rc, $rc["page"]);
-		$rc = $this->open("pages")->save($rc);
+		$rc = $pages->save($rc);
 
 		$this->redirect("admin.viewMenu", $rc);
 	}
 
 	public function processSilentPage ($rc) {
 
-		$rc["page"] = $this->open("pages")->load($rc["intPageID"]);
+		$pages = new pages;
+
+		$rc["page"] = $pages->load($rc["intPageID"]);
 		$rc["page"]["ntBody"] = $rc["otherbody"];
 
 		$rc = $this->populate($rc, $rc["page"]);
-		$rc = $this->open("pages")->save($rc);
+		$rc = $pages->save($rc);
 
 		$rc["func"] = "silentSave";
 		$rc["view"] = "admin.ajax";
@@ -203,7 +207,7 @@
 
 		$rc["prefix"] = "doc-";
 
-		$rc["vcDocFile"] = $this->open("util")->upload($rc);
+		$rc["vcDocFile"] = $this->upload($rc);
 
 		$rc = $this->open("docs")->save($rc);
 

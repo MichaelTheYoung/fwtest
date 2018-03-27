@@ -1,7 +1,6 @@
 <? class pageQry extends core {
 
 	public function create ($rc) {
-		$db = $this->open("db");
 		$SQL = "INSERT INTO tblPage (
 			intParentID
 			, intLevel
@@ -11,8 +10,10 @@
 			, vcItem
 			, vcNavName
 			, vcTitle
-			, ntBody";
-		$SQL .= $this->open("util")->startStamp();
+			, ntBody
+			, intCreatedBy
+			, vcCreateDate
+			, vcCreateTime";
 		$SQL .= ") VALUES (";
 			$SQL .= $rc["intParentID"] . ", ";
 			$SQL .= $rc["intLevel"] . ", ";
@@ -20,56 +21,72 @@
 			$SQL .= $rc["intIsActive"] . ", '";
 			$SQL .= $rc["vcSection"] . "', '";
 			$SQL .= $rc["vcItem"] . "', '";
-			$SQL .= $db->wclean($rc["vcNavName"]) . "', '";
-			$SQL .= $db->wclean($rc["vcTitle"]) . "', '";
-			$SQL .= $db->wclean($rc["ntBody"]) . "'";
-			$SQL .= $db->open("util")->finishStamp();
-		return $db->writeOneReturn($SQL);
+			$SQL .= $this->wclean($rc["vcNavName"]) . "', '";
+			$SQL .= $this->wclean($rc["vcTitle"]) . "', '";
+			$SQL .= $this->wclean($rc["ntBody"]) . "', ";
+			$SQL .= $_SESSION["user"]["userid"] . ", '";
+			$SQL .= date("Y-m-d") . "', '";
+			$SQL .= date("h:i A") . "')";
+		return $this->writeOneReturn($SQL);
 	}
 
 	public function update ($rc) {
-		$db = $this->open("db");
 		$SQL = "UPDATE tblPage SET ";
 		$SQL .= "intParentID = " . $rc["intParentID"] . ", ";
 		$SQL .= "intLevel = " . $rc["intLevel"] . ", ";
 		$SQL .= "intSortOrder = " . $rc["intSortOrder"] . ", ";
 		$SQL .= "intIsActive = " . $rc["intIsActive"] . ", ";
-		$SQL .= "vcSection = '" . $db->wclean($rc["vcSection"]) . "', ";
-		$SQL .= "vcItem = '" . $db->wclean($rc["vcItem"]) . "', ";
-		$SQL .= "vcNavName = '" . $db->wclean($rc["vcNavName"]) . "', ";
-		$SQL .= "vcTitle = '" . $db->wclean($rc["vcTitle"]) . "', ";
-		$SQL .= "ntBody = '" . $db->wclean($rc["ntBody"]) . "' ";
-		$SQL .= $this->open("util")->updateStamp();
+		$SQL .= "vcSection = '" . $this->wclean($rc["vcSection"]) . "', ";
+		$SQL .= "vcItem = '" . $this->wclean($rc["vcItem"]) . "', ";
+		$SQL .= "vcNavName = '" . $this->wclean($rc["vcNavName"]) . "', ";
+		$SQL .= "vcTitle = '" . $this->wclean($rc["vcTitle"]) . "', ";
+		$SQL .= "ntBody = '" . $this->wclean($rc["ntBody"]) . "', ";
+		$SQL .= "intModifiedBy = " . $_SESSION["user"]["userid"] . ", ";
+		$SQL .= "vcModifyDate = '" . date("Y-m-d") . "', ";
+		$SQL .= "vcModifyTime = '" . date("g:i A") . "' ";
 		$SQL .= "WHERE intPageID = " . $rc["intPageID"];
-		$db->writeOne($SQL);
+		$this->writeOne($SQL);
 	}
 
 	public function load ($id) {
 		if ($id > 0) {
-			return $this->open("db")->getOne("SELECT * FROM tblPage WHERE intPageID = " . $id);
+			return $this->getOne("SELECT * FROM tblPage WHERE intPageID = " . $id);
 		} else {
-			return $this->open("db")->getEmpty("tblPage");
+			return $this->getEmpty("tblPage");
 		}
 	}
 
+	public function loadAll ($active = false) {
+		$SQL = "SELECT * FROM tblPage";
+		if ($active) {
+			$SQL .= " WHERE intIsActive = 1";
+		}
+		return $this->getAll($SQL);
+	}
+
 	public function loadContent ($id) {
-		return $this->open("db")->getOne("SELECT inPageID, vcTitle, ntBody FROM tblPage WHERE intPageID = " . $id);
+		return $this->getOne("SELECT inPageID, vcTitle, ntBody FROM tblPage WHERE intPageID = " . $id);
 	}
 
 	public function loadBySection ($section, $item) {
-		return $this->open("db")->getOne("SELECT * FROM tblPage WHERE vcSection = '" . $section . "' AND vcItem = '" . $item . "'");
-	}
-
-	public function loadAll () {
-		return $this->open("db")->getAll("SELECT * FROM tblPage");
+		return $this->getOne("SELECT * FROM tblPage WHERE vcSection = '" . $section . "' AND vcItem = '" . $item . "'");
 	}
 
 	public function loadParents () {
-		return $this->open("db")->getAll("SELECT * FROM tblPage WHERE intParentID = 0 ORDER BY intSortOrder ASC, intPageID ASC");
+		return $this->getAll("SELECT * FROM tblPage WHERE intParentID = 0 ORDER BY intSortOrder ASC, intPageID ASC");
 	}
 
-	public function loadChildren () {
-		return $this->open("db")->getAll("SELECT * FROM tblPage WHERE intParentID > 0 ORDER BY intParentID ASC, intSortOrder ASC, intPageID ASC");
+	public function loadChildren ($parentID) {
+		return $this->getAll("SELECT * FROM tblPage WHERE intParentID = " . $parentID . " ORDER BY intSortOrder ASC");
 	}
+
+	public function findHome () {
+		if ($rec = $this->getOne("SELECT intPageID FROM tblPage WHERE intParentID = 0 ORDER BY intSortOrder ASC LIMIT 1")) {
+			return $rec["intPageID"];
+		} else {
+			return 0;
+		}
+	}
+
 
 } ?>

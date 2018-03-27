@@ -23,7 +23,7 @@
 		$doc = $this->open("docsQry")->load($rc["id"]);
 		$rc = $this->populate($rc, $doc);
 		$this->open("docsQry")->delete($rc);
-		$this->open("util")->killFile($rc["vcDocFile"]);
+		$this->killFile($rc["vcDocFile"]);
 	}
 
 }
