@@ -35,6 +35,7 @@
 				</div>
 				<div class="col-md-3">
 				<!--	<legend>Notes</legend> -->
+				<!-- admin directions go here -->
 				</div>
 			</div>
 		</div>

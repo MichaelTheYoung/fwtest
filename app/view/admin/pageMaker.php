@@ -8,18 +8,29 @@
 					<div class="panel-heading menu">Existing Pages</div>
 					<div class="list-group"><?
 
-						$counter = 0;
-						if (is_array($rc["nav"])) {
+						if (isset($rc["nav"])) {
+
+							$counter = 0;
 
 							$nav = $rc["nav"];
 
 							foreach ($nav as $page) {
 
-								if ($page["intParentID"]== 0) {
-									$counter++;
+								$counter++;
+
+								?><a href="<?=$this->buildUrl("admin.viewPageMaker?intPageID=" . $page["intPageID"])?>" class="list-group-item adminLink"><?=$page["vcNavName"]?></a><?
+
+								$childCounter = 0;
+
+								if (isset($nav[$counter]["children"])) {
+
+									$childCounter++;
+
+									foreach ($nav[$counter]["children"] as $child) {
+
+										?><a href="<?=$this->buildUrl("admin.viewPageMaker?intPageID=" . $child["intPageID"])?>" class="list-group-item adminLink indent"><?=$child["vcNavName"]?></a><?
+									}
 								}
-								$page["intParentID"] > 0 ? $indent = " indent" : $indent = "";
-								?><a href="<?=$this->buildUrl("admin.viewPageMaker?intPageID=" . $page["intPageID"])?>" class="list-group-item adminLink<?=$indent?>"><?=$page["vcNavName"]?></a><?
 							}
 						}
 						if ($counter < $GLOBALS["maxPages"]) {

@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/bootstrap-multiselect.css">
 		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/dataTables.bootstrap.min.css">
 		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/selectize.default.css">
-		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/admin.css?v=<?=time()?>">
+		<link rel="stylesheet" href="<?=$GLOBALS["assetsPath"]?>css/app.css?v=<?=time()?>">
   		<script src="<?=$GLOBALS["assetsPath"]?>js/jquery-2.1.3.min.js"></script>
   		<script src="<?=$GLOBALS["assetsPath"]?>js/jquery-ui-1.11.2.min.js"></script>
   		<script src="<?=$GLOBALS["assetsPath"]?>js/lodash-3.6.0.min.js"></script>

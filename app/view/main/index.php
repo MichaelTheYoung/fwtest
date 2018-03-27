@@ -1,8 +1,5 @@
 <?
 
-	?><h1>Hello</h1>
-
-
-
-
+	?><h1><?=$rc["pageTitle"]?></h1>
+	<?=$rc["pageContent"]?>
 

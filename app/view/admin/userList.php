@@ -9,7 +9,7 @@
 	<div class="row rowbottom">&nbsp;</div>
 	<div class="row">
 		<div class="col-md-6"><?
-		if ($this->open("db")->recCount("tblUser") > 1) {
+		if ($this->recCount("tblUser") > 1) {
 			?><table class="table table-condensed table-striped">
 				<tbody><?
 					foreach ($rc["users"] as $user) {

@@ -18,6 +18,8 @@
 
 	$GLOBALS["maxPages"] = 8;
 
+	$GLOBALS["timeZone"] = "America/Chicago";
+
 
 	if (strstr($_SERVER["SERVER_NAME"], "localhost")) {
 
@@ -48,6 +50,6 @@
 
 	}
 
-	date_default_timezone_set("America/Chicago");
+	date_default_timezone_set($GLOBALS["timeZone"]);
 
 ?>
