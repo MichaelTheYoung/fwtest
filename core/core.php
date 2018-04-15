@@ -121,12 +121,17 @@
 			return $rc;
 		}
 
+		private function makeError($errorText) {
+			?><div style="width: auto; height: auto; margin: 12px; padding: 16px; font-family: helvetica; background-color: #EEDDDD; border: 1px solid #666666;"><?=$errorText?></div><?
+			exit;
+		}
+
 		public function render($rc) {
 			$this->showPage($rc);
 		}
 
 		public function open($class) {
-			return $class = new $class;
+			return new $class;
 		}
 
 		public function populate($rc, $struct) {
@@ -215,7 +220,7 @@
 			$arr = explode("-", $sqldate);
 			$oldStamp = mktime(0, 0, 0, $arr[1], $arr[2], $arr[0]);
 			$newStamp = ($oldStamp + ($inc * 86400));
-			$newDate = date("Y-m-d");
+			$newDate = date("Y-m-d", $newStamp);
 			date_default_timezone_set($GLOBALS["timeZone"]);
 			return $newDate;
 		}

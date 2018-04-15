@@ -47,6 +47,15 @@
 		return isset($nav) ? $nav : null;
 	}
 
+	public function loadAllContent () {
+		$blob = "";
+		$recs = $this->open("pageQry")->loadAllContent();
+		foreach ($recs as $rec) {
+			$blob .= $rec["ntBody"];
+		}
+		return $blob;
+	}
+
 	public function findHome () {
 		return $this->open("pageQry")->findHome();
 	}
@@ -75,37 +84,6 @@
 		return $text;
 	}
 
-	public function unTag ($tmp) {
-		$fixed = "";
-		for ($i = 0; $i < (strlen($tmp) - 1); $i++) {
-			if (substr($tmp, $i, 1) == "<") {
-				$keep = "off";
-			}
-			if ($keep == "on") {
-				$fixed .= substr($tmp, $i, 1);
-			}
-			if (substr($tmp, $i, 1) == ">") {
-				$keep = "on";
-			}
-		}
-		return $fixed;
-	}
-
-	public function getFirstWords ($text, $count) {
-		$wordArray = explode(" ", $text);
-		if (count($wordArray) <= $count) {
-			return $text;
-		} else {
-			$words = "";
-			for ($i = 0; $i < $count; $i++) {
-				if ($i > $count) {
-					break;
-				}
-				$words .= $wordArray[$i] . " ";
-			}
-		}
-		return trim($words);
-	}
 
 } ?>
 
