@@ -8,7 +8,11 @@
 			"pageService",
 			"pageGateway",
 			"documentService",
-			"documentGateway"
+			"documentGateway",
+			"imageService",
+			"imageGateway",
+			"galleryService",
+			"galleryGateway"
 		);
 	}
 
@@ -231,6 +235,44 @@
 		$this->render($rc);
 
 		return $rc;
+	}
+
+	public function viewImageUploader ($rc) {
+
+		$rc["maxuploads"] = $GLOBALS["maxUploads"];
+
+		$blob = $this->open("pages")->loadAllContent();
+
+		$rc["pics"] = $this->open("pics")->loadAll();
+
+		$rc["usedPics"] = array();
+
+		foreach ($rc["pics"] as $pic) {
+			if (strstr($blob, $pic["vcPicFile"])) {
+				array_push($rc["usedPics"], $pic["vcPicFile"]);
+			}
+		}
+
+		$rc["view"] = "admin.imageUploader";
+		return $rc;
+	}
+
+	public function processImageUpload ($rc) {
+
+		$rc["prefix"] = "pic-";
+
+		$rc["picArray"] = $this->multiUpload($rc);
+
+		$this->open("pics")->writeAll($rc);
+
+		$this->redirect("admin.viewImageUploader", $rc);
+	}
+
+	public function removeImage ($rc) {
+
+		$this->open("pics")->delete($rc["id"]);
+
+		$this->redirect("admin.viewImageUploader", $rc);
 	}
 
 } ?>

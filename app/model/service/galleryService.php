@@ -1,0 +1,6 @@
+<? class gallery extends core {
+
+
+
+
+} ?>

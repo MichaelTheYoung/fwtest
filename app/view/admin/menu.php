@@ -40,6 +40,7 @@
 						<div class="panel-heading menu">Utilities</div>
 						<div class="list-group">
 							<a href="<?=$this->buildUrl("admin.listUsers")?>" class="list-group-item adminLink">Work with Users</a>
+							<a href="<?=$this->buildUrl("admin.viewImageUploader")?>" class="list-group-item adminLink">Image Bank Uploader</a>
 							<a href="<?=$this->buildUrl("admin.viewDocList")?>" class="list-group-item adminLink">Uploaded Documents</a>
 						</div>
 					</div>

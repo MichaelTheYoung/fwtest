@@ -1,0 +1,6 @@
+<? class galleryQry extends core {
+
+
+
+
+} ?>

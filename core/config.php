@@ -17,6 +17,7 @@
 	$GLOBALS["defaultPage"] = "index";
 
 	$GLOBALS["maxPages"] = 8;
+	$GLOBALS["maxUploads"] = 5;
 
 	$GLOBALS["timeZone"] = "America/Chicago";
 

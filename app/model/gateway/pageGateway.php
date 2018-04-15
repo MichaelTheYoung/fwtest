@@ -64,6 +64,10 @@
 		return $this->getAll($SQL);
 	}
 
+	public function loadAllContent () {
+		return $this->getAll("SELECT ntBody FROM tblPage");
+	}
+
 	public function loadContent ($id) {
 		return $this->getOne("SELECT inPageID, vcTitle, ntBody FROM tblPage WHERE intPageID = " . $id);
 	}
