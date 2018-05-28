@@ -42,6 +42,7 @@
 							<a href="<?=$this->buildUrl("admin.listUsers")?>" class="list-group-item adminLink">Work with Users</a>
 							<a href="<?=$this->buildUrl("admin.viewImageUploader")?>" class="list-group-item adminLink">Image Bank Uploader</a>
 							<a href="<?=$this->buildUrl("admin.viewDocList")?>" class="list-group-item adminLink">Uploaded Documents</a>
+							<a href="<?=$this->buildUrl("admin.listGalleries")?>" class="list-group-item adminLink">Photo / Video Galleries</a>
 						</div>
 					</div>
 				</div>

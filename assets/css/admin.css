@@ -138,6 +138,100 @@
 		width: 100%;
 	}
 
+	.listTable {
+		width: auto;
+		height: auto;
+	}
 
+	.listTable td {
+		padding: 4px;
+		font-size: 14px;
+	}
 
+	.listTable td a:link {
+		color: #005588;
+		text-decoration: none;
+	}
+
+	.listTable td a:visited {
+		color: #005588;
+		text-decoration: none;
+	}
+
+	.listTable td a:hover {
+		color: #005588;
+		text-decoration: none;
+	}
+
+	.galleryPicBox {
+		width: 300px;
+		height: 300px;
+		display: inline-block;
+		text-align: center;
+		padding: 0;
+		margin-right: 20px;
+		float: left;
+	}
+
+	.galleryPicName {
+		width: 100%;
+		height: auto;
+		text-align: center;
+	}
+
+	.galleryPicContainer {
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+	}
+
+	.galleryPic {
+		width: 100%;
+	}
+
+	.galleryPicBottom {
+		width: 100%;
+		height: 50px;
+		padding-top: 12px;
+		text-align: center;
+	}
+
+	.galleryVidCode {
+		width: 100%;
+		height: 110px !important;
+		resize: none;
+	}
+
+	.bottomSpace {
+		width: 100%;
+		height: 80px !important;
+	}
+
+	.galleryVidOuter {
+		width: 300px;
+		height: auto;
+		text-align: center;
+		display: inline-block;
+		margin-right: 50px;
+		float: left;
+	}
+
+	.galleryVidTop {
+		width: 300px;
+		height: auto;
+		float: left;
+		text-align: center;
+		white-space: nowrap;
+	}
+
+	.galleryVid {
+		width: 300px;
+		height: 186px;
+		margin: 8px 0px 8px 0px;
+		float: left;
+	}
+
+	#saved {
+		color: #007744;
+	}
 

@@ -36,7 +36,7 @@
 
 	function savePage() {
 		document.frmEditor.otherbody.value = CKEDITOR.instances["ntBody"].getData();
-		PostItem(page.silentSave, "frmEditor", "saved");
+		postItem( "frmEditor", page.silentSave, "saved", "Saved!");
 		setTimeout("eraseSaved()", 1500);
 	}
 
@@ -45,12 +45,11 @@
 	}
 
 	function getImageBank() {
-
-
+		getItem(page.getImageBank, "popup-content");
 	}
 
 	function getDocBank() {
-		GetItem(page.getDocumentBank, "popup-content");
+		getItem(page.getDocumentBank, "popup-content");
 	}
 
 	function selectAll(id) {

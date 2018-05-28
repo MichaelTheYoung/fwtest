@@ -141,6 +141,15 @@
 			return $rc;
 		}
 
+		public function refresh($rc, $struct) {
+			while (list($key, $val) = each($struct)) {
+				if (isset($rc[$key])) {
+					$struct[$key] = $rc[$key];
+				}
+			}
+			return $struct;
+		}
+
 		public function buildUrl($tmp) {
 			$sectionpage = $tmp;
 			$ustring = "";
@@ -358,6 +367,10 @@
 				ob_start();
 				echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">";
 			}
+		}
+
+		public function listappend($str, $add, $del = ",") {
+			return $str == "" ? $add : $str . $del . $add;
 		}
 
 		public function dbConn() {
