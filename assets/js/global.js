@@ -63,109 +63,30 @@
 		return tmp;
 	}
 
-	function PostItem(theScript, frmName, div) {
-	frmName = document.forms[frmName];
-		var fld;
-		var theData = "";
-		for (i = 0; i < frmName.elements.length; i++) {
-			fld = frmName.elements[i];
-			if ((fld.type !== "button") && (fld.type !== "submit")) {
-				if ((fld.type == "radio") || (fld.type == "checkbox")) {
-					if (fld.checked) {
-						if (i > 0) {
-							theData += "&" + fld.name + "=" + escape(fld.value);
-						} else {
-							theData += fld.name + "=" + escape(fld.value);
-						}
-					}
-				} else {
-					if (i > 0) {
-						theData += "&" + fld.name + "=" + encodeURIComponent(fld.value);
-					} else {
-						theData += fld.name + "=" + encodeURIComponent(fld.value);
-					}
-				}
-			}
-		}
-		var xmlHttp;
-		if (xmlHttp = startAjax()) {
-			xmlHttp.open("POST", theScript, true);
-			xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xmlHttp.onreadystatechange = function() {
-				if (xmlHttp.readyState == 4) {
-					var theText = xmlHttp.responseText;
-					ShowDiv(div);
-					SwapText(div, theText);
-				}
-			}
-			xmlHttp.send(theData);
-		}
-	}
-
-	function PostMultiForm(formname, posttoscript, outputdiv) {
+	function postItem(formname, posttoscript, outputdiv, outputText) {
 		var form = document.forms.namedItem(formname);
 		oData = new FormData(form);
 		var oReq = new XMLHttpRequest();
 		oReq.open("POST", posttoscript, true);
 		oReq.onload = function(oEvent) {
-			document.getElementById(outputdiv).innerHTML = oReq.status;
+			if (outputText) {
+				document.getElementById(outputdiv).innerHTML = outputText;
+			} else {
+				document.getElementById(outputdiv).innerHTML = oReq.status;
+			}
 		};
 		oReq.send(oData);
 	}
 
-	function GetItem(theScript, div, doThis) {
-		var xmlHttp;
-		if (xmlHttp = startAjax()) {
-			xmlHttp.onreadystatechange = function() {
-				if(xmlHttp.readyState == 4) {
-					var theText = xmlHttp.responseText;
-					ShowDiv(div);
-					SwapText(div, theText);
-					if ((doThis) && (typeof(doThis) == "function")) {
-						doThis();
-					}
-				}
-			}
-			xmlHttp.open("GET", theScript, true);
-			xmlHttp.send(null);
-		}
-	}
-
-	function GetItem_OLD(theScript, div) {
-		var xmlHttp;
-		if (xmlHttp = startAjax()) {
-			xmlHttp.onreadystatechange = function() {
-				if(xmlHttp.readyState == 4) {
-					var theText = xmlHttp.responseText;
-					ShowDiv(div);
-					SwapText(div, theText);
-				}
-			}
-			xmlHttp.open("GET", theScript, true);
-			xmlHttp.send(null);
-		}
-	}
-
-	function startAjax() {
-		var xmlHttp;
-		try {
-			xmlHttp = new XMLHttpRequest();
-		}
-		catch (e) {
-			try {
-				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-			}
-			catch (e) {
-				try {
-					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-				catch (e) {
-					alert("Your browser does not support AJAX.");
-					return false;
-				}
+	function getItem(theScript, div) {
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() {
+			if(xmlHttp.readyState == 4) {
+				document.getElementById(div).innerHTML = xmlHttp.responseText;
 			}
 		}
-		return xmlHttp;
+		xmlHttp.open("GET", theScript, true);
+		xmlHttp.send(null);
 	}
 
 	function CheckDate(dname,fname,msg) {
@@ -431,13 +352,13 @@
 		return num;
 	}
 
-	function IsNumeric(num) {
+	function isNumeric(num) {
 		if (Math.round((num) * 2) > -1) {
 			return true;
 		}
 	}
 
-	function IsRealNumeric(num) {
+	function isRealNumeric(num) {
 		if ((Math.round((num) * 2) > -1) && (Math.round(num) > 0)) {
 			return true;
 		}

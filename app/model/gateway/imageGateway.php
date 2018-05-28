@@ -30,9 +30,6 @@
 
 	public function delete ($id) {
 
-	//	$SQL = "DELETE FROM tblImage WHERE intImageID = " . $id;
-	//	$this->dumpvar($SQL);
-
 		$this->writeOne("DELETE FROM tblImage WHERE intImageID = " . $id);
 	}
 

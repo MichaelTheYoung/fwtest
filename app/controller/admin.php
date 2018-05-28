@@ -12,7 +12,9 @@
 			"imageService",
 			"imageGateway",
 			"galleryService",
-			"galleryGateway"
+			"galleryGateway",
+			"galleryItemService",
+			"galleryItemGateway"
 		);
 	}
 
@@ -181,14 +183,6 @@
 
 		$rc = $this->populate($rc, $rc["page"]);
 		$rc = $pages->save($rc);
-
-		$rc["func"] = "silentSave";
-		$rc["view"] = "admin.ajax";
-		$rc["layout"] = "none";
-
-		$this->render($rc);
-
-		return $rc;
 	}
 
 	public function viewDocList ($rc) {
@@ -274,6 +268,177 @@
 
 		$this->redirect("admin.viewImageUploader", $rc);
 	}
+
+	public function getImageBank ($rc) {
+
+		$rc["pics"] = $this->open("pics")->loadAll();
+
+		$rc["view"] = "admin.imageBank";
+		$rc["layout"] = "none";
+
+		$this->render($rc);
+
+		return $rc;
+	}
+
+	public function listGalleries ($rc) {
+
+		$rc["maxuploads"] = $GLOBALS["maxUploads"];
+
+		$rc["picGalleries"] = $this->open("gallery")->loadAllByType(10);
+		$rc["vidGalleries"] = $this->open("gallery")->loadAllByType(20);
+
+		$rc["view"] = "admin.galleryList";
+		return $rc;
+	}
+
+	public function viewGalleryForm ($rc) {
+
+		$rc["gallery"] = $this->open("gallery")->load($rc["id"]);
+
+		$rc["activeList"] = $this->getActiveList("form-control", $rc["gallery"]["intIsActive"]);
+
+		$rc["typeList"]["10"] = "Photos";
+		$rc["typeList"]["20"] = "Videos";
+
+		if ($rc["id"] == 0) {
+			$rc["button"] = "Add Gallery";
+			$rc["verb"] = "Add";
+			$rc["gallery"]["intIsActive"] = "0";
+		} else {
+			$rc["button"] = "Save Changes";
+			$rc["verb"] = "Edit";
+		}
+
+		$rc["view"] = "admin.galleryForm";
+		return $rc;
+	}
+
+	public function processGalleryForm ($rc) {
+
+		$rc = $this->open("gallery")->save($rc);
+
+		$this->redirect("admin.listGalleries", $rc);
+	}
+
+	public function viewGalleryPics ($rc) {
+
+		$rc["gallery"] = $this->open("gallery")->load($rc["intGalleryID"]);
+
+		$rc["pics"] = $this->open("galleryItem")->loadAllByGalleryID($rc["intGalleryID"]);
+
+		$rc["picCount"] = count($rc["pics"]);
+
+		$rc["maxuploads"] = $GLOBALS["maxUploads"];
+
+		$rc["view"] = "admin.galleryPics";
+		return $rc;
+	}
+
+	public function processGalleryPics ($rc) {
+
+		$rc["prefix"] = "gal-";
+
+		$tempId = $rc["intGalleryID"];
+
+		$rc["picArray"] = $this->multiUpload($rc);
+
+		foreach ($rc["picArray"] as $pic) {
+
+			$newPic = $this->open("galleryItem")->load(0);
+			$newPic["vcPicFile"] = $pic;
+			$newPic["intGalleryID"] = $tempId;
+
+			$rc = $this->populate($rc, $newPic);
+			$rc = $this->open("galleryItem")->save($rc);
+		}
+
+		$rc["intGalleryID"] = $tempId;
+
+		$this->redirect("admin.viewGalleryPics", $rc, true);
+	}
+
+	public function processGalleryOrders ($rc) {
+
+		$arr = explode(",", $rc["numstring"]);
+
+		foreach ($arr as $id) {
+
+			$pic = $this->open("galleryItem")->load($id);
+
+			$pic["intSortNo"] = $rc["sort-" . $id];
+			$pic["vcVidTitle"] = $rc["title-" . $id];
+
+			$rc = $this->populate($rc, $pic);
+
+			$this->open("galleryItem")->save($rc);
+		}
+
+		if (strlen(trim($pic["vcVidTitle"])) == 0) {
+			$this->redirect("admin.viewGalleryPics", $rc, true);
+		} else {
+			$this->redirect("admin.viewGalleryVids", $rc, true);
+		}
+	}
+
+	public function viewGalleryVids ($rc) {
+
+		$rc["gallery"] = $this->open("gallery")->load($rc["intGalleryID"]);
+
+		$rc["vids"] = $this->open("galleryItem")->loadAllByGalleryID($rc["intGalleryID"]);
+
+		$rc["vidCount"] = count($rc["vids"]);
+
+		$rc["view"] = "admin.galleryVids";
+		return $rc;
+	}
+
+	public function processGalleryVid ($rc) {
+
+		$vid = $this->open("galleryItem")->load(0);
+		$vid = $this->refresh($rc, $vid);
+
+		$rc["isVid"] = true;
+
+		$this->open("galleryItem")->save($vid);
+
+		$this->redirect("admin.viewGalleryVids", $rc, true);
+	}
+
+	public function removeGallery ($rc) {
+
+		$items = $this->open("galleryItem")->loadAllByGalleryID($rc["intGalleryID"]);
+
+		foreach ($items as $item) {
+
+			if (trim($item["vcPicFile"]) != "") {
+				$this->killFile($item["vcPicFile"]);
+			}
+
+			$this->open("galleryItem")->delete($item["intGalleryItemID"]);
+		}
+
+		$this->open("gallery")->delete($rc["intGalleryID"]);
+
+		$this->redirect("admin.listGalleries", $rc);
+	}
+
+	public function removeGalleryItem ($rc) {
+
+		$rc["item"] = $this->open("galleryItem")->load($rc["intGalleryItemID"]);
+
+		if (strlen(trim($rc["item"]["vcVidCode"])) == 0) {
+			$this->killFile($rc["item"]["vcPicFile"]);
+			$goNext = "admin.viewGalleryPics";
+		} else {
+			$goNext = "admin.viewGalleryVids";
+		}
+
+		$this->open("galleryItem")->delete($rc["intGalleryItemID"]);
+
+		$this->redirect($goNext, $rc, true);
+	}
+
 
 } ?>
 

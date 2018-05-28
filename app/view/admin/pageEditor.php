@@ -7,7 +7,7 @@
 	<div class="row rowbottom">
 		<p><a href="<?=$this->buildUrl("admin.viewMenu")?>" class="adminLink">Back</a>
 		&nbsp;|&nbsp;
-		<a href="#3" onClick="GetImageBank();" class="adminLink">Image Bank</a>
+		<a href="#3" data-toggle="modal" data-target="#popup" onClick="getImageBank();" class="adminLink">Image Bank</a>
 		&nbsp;|&nbsp;
 		<a href="#3" data-toggle="modal" data-target="#popup" onClick="getDocBank();" class="adminLink">Document Bank</a>
 		&nbsp;|&nbsp;
@@ -38,6 +38,7 @@
 		var page = new Object;
 		page.silentSave = "<?=$this->buildUrl("admin.processSilentPage")?>";
 		page.getDocumentBank = "<?=$this->buildUrl("admin.getDocumentBank")?>";
+		page.getImageBank = "<?=$this->buildUrl("admin.getImageBank")?>";
 
 	</script>
 	</form>
@@ -45,7 +46,6 @@
 	<form name="frmHide" method="post" action="<?=$this->buildUrl("admin.viewPagePreview")?>" target="_blank">
 	<input type="hidden" name="id" value="<?=$rc["intPageID"]?>">
 	</form>
-
 
 	<script src="<?=$GLOBALS["assetsPath"]?>js/admin/pages.js"></script>
 

@@ -37,8 +37,8 @@
 		if (isset($rc["vcLogPW"])) {
 			$SQL .= "vcLogPW = '" . $rc["vcLogPW"] . "', ";
 		}
-		$SQL .= "intModifiedBy = " . $_SESSION["user"]["userid"];
-		$SQL .= "vcModifyDate = '" . date("Y-m-d") . "' ";
+		$SQL .= "intModifiedBy = " . $_SESSION["user"]["userid"] . ", ";
+		$SQL .= "vcModifyDate = '" . date("Y-m-d") . "', ";
 		$SQL .= "vcModifyTime = '" . date("g:i A") . "' ";
 		$SQL .= "WHERE intUserID = " . $rc["intUserID"];
 		$this->writeOne($SQL);
